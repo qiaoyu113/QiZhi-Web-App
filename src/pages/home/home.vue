@@ -40,7 +40,7 @@
     }
 </script>
 <style lang="less">
-    /*基本的rem设置都放在base中，不写多个*/
+    /*rem等基本设置都放在base中，不写多个*/
     @import url('../../assets/css/base.less');
 </style>
 
