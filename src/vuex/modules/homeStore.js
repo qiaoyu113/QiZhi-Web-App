@@ -9,6 +9,8 @@ const homeStore = {
         actlist: '', // 过期日期
         prolist: '' // ???
     },
-    mutations: {}
+    mutations: {
+
+    }
 }
 export default homeStore

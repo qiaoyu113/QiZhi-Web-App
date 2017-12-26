@@ -18,12 +18,35 @@
         computed:{
 
         },
-        created: function() {
+        syncData({store}) {
             /*基本规则
             * 所有不需要token的请求都放在这里
             * 这里不出现window，document等DOM元素
             * 这里获得的数据都要存储在store中
+            * 写法如下
             * */
+            const that = this;
+            /*
+            * 将所有的请求处理以数组放在promise中
+            * that.data().data调用数据
+            * */
+            return Promise.all([
+                appervice.getParam().then(res=>{
+//                    store.state.homeStore.listImg = res.data;
+                }),
+                service.getParam().then(res=>{
+//                    store.state.homeStore.noticelist = res.data.datas;
+                }),
+            ])
+        },
+        computed: {
+            //将存在store中的数据取出
+            listImg() {
+                return this.$store.state.homeStore.listImg || []
+            },
+            noticelist() {
+                return this.$store.state.homeStore.noticelist || []
+            },
         },
         mounted: function() {
             /*

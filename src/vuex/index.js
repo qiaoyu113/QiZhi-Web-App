@@ -6,6 +6,9 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex);
 
+
+import homeStore from './modules/homeStore'
+
 const store = new Vuex.Store({
     // 定义状态
     state: {
@@ -20,6 +23,7 @@ const store = new Vuex.Store({
     actions: {
     },
     modules: {
+        homeStore: homeStore,
     }
 })
 export default store
