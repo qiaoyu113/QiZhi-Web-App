@@ -26,6 +26,9 @@ Vue.component('z-home', backhome)
 // 定义组件
 const short = (resolve) => {require(['./pages/short.vue'],resolve)}
 const home = (resolve) => {require(['./pages/home/home.vue'],resolve)}
+// 直播
+const live = (resolve) => {require(['./pages/home/home.vue'],resolve)}
+const liveDetails = (resolve) => {require(['./pages/home/home.vue'],resolve)}
 // 404错误页面
 const error = (resolve) => {require(['./pages/error.vue'],resolve)}
 
@@ -34,6 +37,9 @@ const routers = [
     {path: '/d/:shortId', component: short},
     {name: 'home',path:'/',component: home, meta: {keepAlive: true}},
     {name: 'err',path:'/s/404',component: error}, //错误跳到404页面
+    // 直播
+    {name: 'live',path:'/lives',component: live},
+    {name: 'liveDetails',path:'/lives/detail/:liveDetailId',component: liveDetails}
 ]
 
 const router = new VueRouter({
