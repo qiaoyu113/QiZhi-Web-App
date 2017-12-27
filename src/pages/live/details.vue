@@ -1,20 +1,40 @@
 <template>
-  <!--title为当前页标题
-      组件要小，如遇list，只将item做成组件，其他的都写在页面中
-  -->
-  <div id="home" v-set-title="title">
-    企智网
+  <div>
+    <!--存放播放器的区域-->
+    <div class="live-show" v-if="isShowVideo">
+      <live-video></live-video>
+    </div>
+    <!--直播的三种情况-->
+    <div class="live-show" v-else>
+      <div></div>
+      <div></div>
+      <div ></div>
+    </div>
+    <!--tab切换-->
+    <div class="live-mid">
+      <span class="live-mid-item cur-item" @click="howToShow(1,$event)">直播简介</span>
+      <span class="live-mid-item" @click="howToShow(2,$event)">交流区</span>
+      <span class="live-mid-item" @click="howToShow(3,$event)">讲师</span>
+    </div>
+    <!--详情介绍，交流区，讲师-->
+    <div></div>
+
+    直播详情页
   </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
+  const video = (resolve) => {require(['../../component/video/video.vue'],resolve)}
   import {appService} from '../../service/appService'
+
   export default {
     data () {
       return {
+        isShowVideo: 0, //是否显示播放器
 
       }
     },
+    components: { 'live-video': video},
     computed:{
 
     },
@@ -54,16 +74,30 @@
        * 可以使用DOM元素
        * 这里的数据可以放在data中
        * */
-
-
+      this.tag=true
     },
     methods: {
-
+      howToShow (no, event) {
+        let that = this, obj = event.currentTarget;
+        let parentN = obj.parentNode,childrenN = parentN.childNodes;
+        for(let i = 0; i< childrenN.length; i++){
+          childrenN[i].className = 'live-mid-item';
+        }
+        obj.className = 'live-mid-item cur-item';
+        that.changeState = no;
+        if (no== 2){
+        }else if(no == 3){
+          setTimeout(function(){
+            that.getMessOfSponsor();
+          },200);
+        }
+      },
     }
   }
 </script>
 <style lang="less">
   /*rem等基本设置都放在base中，不写多个*/
   @import url('../../assets/css/base.less');
+  @import url('../../assets/css/live/live.less');
 </style>
 
