@@ -48,7 +48,7 @@
     position: absolute;
     left: 0.2rem;
     line-height: 1.2rem;
-    color: #999999;
+    color: #333;
   }
 </style>
 

@@ -3,6 +3,7 @@
         组件要小，如遇list，只将item做成组件，其他的都写在页面中
     -->
     <div id="home" v-set-title="title">
+        <router-link to="comment">评论</router-link>
         企智网
     </div>
 </template>
@@ -12,7 +13,7 @@
     export default {
         data () {
             return {
-
+                title:""
             }
         },
         computed:{

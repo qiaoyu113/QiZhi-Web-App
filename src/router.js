@@ -16,6 +16,7 @@ import zfooter from './component/common/footer.vue'
 import zhistory from './component/common/goback.vue'
 import backhome from './component/common/back-home.vue'
 
+
 Vue.component('z-modal', zmodal)
 Vue.component('z-banner', zbanner)
 Vue.component('z-footer', zfooter)
@@ -26,6 +27,7 @@ Vue.component('z-home', backhome)
 // 定义组件
 const short = (resolve) => {require(['./pages/short.vue'],resolve)}
 const home = (resolve) => {require(['./pages/home/home.vue'],resolve)}
+const comment = (resolve) => {require(['./pages/home/comment.vue'],resolve)}
 // 404错误页面
 const error = (resolve) => {require(['./pages/error.vue'],resolve)}
 
@@ -34,6 +36,7 @@ const routers = [
     {path: '/d/:shortId', component: short},
     {name: 'home',path:'/',component: home, meta: {keepAlive: true}},
     {name: 'err',path:'/s/404',component: error}, //错误跳到404页面
+    {name: 'comment',path:'/comment',component: comment},
 ]
 
 const router = new VueRouter({
