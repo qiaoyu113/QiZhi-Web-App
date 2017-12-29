@@ -12,7 +12,7 @@
     export default {
         data () {
             return {
-
+                title: '企智网'
             }
         },
         computed:{
