@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="item" v-for="item in arrays">
+        <div class="item" v-for="item in arrays" @click="goToDetail(item.id)">
             <div class="left">
                 <img class="cover" :src="item.cover">
                 <span class="mark grey" v-if="item.state=='已结束'"><span class="txtScale">{{ item.state }}</span></span>
@@ -27,7 +27,12 @@
     mounted () {
         this.arrays = this.collection;
     },
-    methods: {}
+    methods: {
+        goToDetail (no) {
+        this.$route.params.watchNo = no;
+        this.$router.push({name: 'liveDetails'});
+        }
+    }
   }
 </script>
 <style lang="less">

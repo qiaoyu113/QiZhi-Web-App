@@ -39,7 +39,7 @@ const routers = [
     {name: 'err',path:'/s/404',component: error}, //错误跳到404页面
     // 直播
     {name: 'live',path:'/lives',component: live},
-    {name: 'liveDetails',path:'/lives/details/:liveDetailId',component: liveDetails}
+    {name: 'liveDetails',path:'/lives/details/:watchNo',component: liveDetails}
 ]
 
 const router = new VueRouter({
