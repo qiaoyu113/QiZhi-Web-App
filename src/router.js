@@ -25,8 +25,16 @@ Vue.component('z-home', backhome)
 
 
 // 定义组件
+
 const short = (resolve) => {require(['./pages/short.vue'],resolve)}
 const home = (resolve) => {require(['./pages/home/home.vue'],resolve)}
+// 直播
+const live = (resolve) => {require(['./pages/home/home.vue'],resolve)}
+const liveDetails = (resolve) => {require(['./pages/home/home.vue'],resolve)}
+//个人中心
+const mycenter = (resolve) => {require(['./pages/personal/mycenter.vue'],resolve)}
+const setting = (resolve) => {require(['./pages/personal/setting.vue'],resolve)}
+const vip = (resolve) => {require(['./pages/personal/vip.vue'],resolve)}
 const comment = (resolve) => {require(['./pages/home/comment.vue'],resolve)}
 // 404错误页面
 const error = (resolve) => {require(['./pages/error.vue'],resolve)}
@@ -36,6 +44,13 @@ const routers = [
     {path: '/d/:shortId', component: short},
     {name: 'home',path:'/',component: home, meta: {keepAlive: true}},
     {name: 'err',path:'/s/404',component: error}, //错误跳到404页面
+    // 直播
+    {name: 'live',path:'/lives',component: live},
+    {name: 'liveDetails',path:'/lives/detail/:liveDetailId',component: liveDetails},
+    // 个人中心
+    {name: 'mycenter',path:'/mycenter',component: mycenter},
+    {name: 'setting',path:'/setting',component: setting},
+    {name: 'vip',path:'/vip',component: vip},
     {name: 'comment',path:'/comment',component: comment},
 ]
 
