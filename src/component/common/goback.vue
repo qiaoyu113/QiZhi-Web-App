@@ -44,9 +44,9 @@
     border-radius:100%;
   }
   #history-fanhui{
-    font-size: 0.8rem;
+    font-size: 18px;
     position: absolute;
-    left: 0.2rem;
+    left: 15px;
     line-height: 1.2rem;
     color: #333;
   }

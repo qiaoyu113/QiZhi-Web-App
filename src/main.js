@@ -41,6 +41,7 @@ import zhistory from './component/common/goback.vue'
 import pheader from './component/personal/header.vue'
 import backhome from './component/common/back-home.vue'
 import poption from './component/personal/option.vue'
+import good from './component/common/good.vue'
 
 Vue.component('z-modal', zmodal)
 Vue.component('z-banner', zbanner)
@@ -49,6 +50,7 @@ Vue.component('z-history', zhistory)
 Vue.component('pheader', pheader)
 Vue.component('z-home', backhome)
 Vue.component('poption', poption)
+Vue.component('good', good)
 
 
 const router = new VueRouter({

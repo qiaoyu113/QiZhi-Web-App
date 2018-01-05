@@ -8,6 +8,14 @@ import store from '../vuex/'
 export const mjhService = {
     api:{
     },
+    /*  个人中心页,确认是否为会员 */
+    myCenter:function () {
+        return axios.get('/shops/999999/users')
+    },
+    /*  根据userId确认是否为会员 */
+    useVip:function (params) {
+        return axios.get('/shops/999999/isvip'+ this.getParam(params))
+    },
     /*  评论接口（接收）  */
     getComments:function(level,pageNo,pageSize,parentId,typeId,type){
         return axios.get('/comments'+ this.getParam(level,pageNo,pageSize,parentId,typeId,type));

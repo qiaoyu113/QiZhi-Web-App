@@ -28,6 +28,8 @@ Vue.component('z-home', backhome)
 const short = (resolve) => {require(['./pages/short.vue'],resolve)}
 const home = (resolve) => {require(['./pages/home/home.vue'],resolve)}
 const comment = (resolve) => {require(['./pages/home/comment.vue'],resolve)}
+const articles = (resolve) => {require(['./pages/article/detail.vue'],resolve)} //模拟文章详情页 可覆盖
+const login = (resolve) => {require(['./pages/login/login.vue'],resolve)} //提示登录页，可直接覆盖
 // 404错误页面
 const error = (resolve) => {require(['./pages/error.vue'],resolve)}
 
@@ -37,6 +39,8 @@ const routers = [
     {name: 'home',path:'/',component: home, meta: {keepAlive: true}},
     {name: 'err',path:'/s/404',component: error}, //错误跳到404页面
     {name: 'comment',path:'/comment',component: comment},
+    {name: 'articles',path:'/articles',component: articles}, //模拟文章详情页 可忽略
+    {name: 'login',path:'/login',component: login}, //模拟登录 可忽略
 ]
 
 const router = new VueRouter({

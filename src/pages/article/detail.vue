@@ -2,25 +2,22 @@
     <!--title为当前页标题
         组件要小，如遇list，只将item做成组件，其他的都写在页面中
     -->
-    <div id="home" v-set-title="title">
-        <router-link to="comment">评论页</router-link>
-        <router-link to="articles">评论模块</router-link>
-        企智网
-        <!-- <good></good> -->
+    <div id="article_detail" v-set-title="title">
+       
+        <z-good ref="selectfood" :good="good" v-if="good"></z-good>
     </div>
 </template>
 
 <script>
-    import {appService} from '../../service/appService'
-    import good from '../../service/appService'
+    import {mjhService} from '../../service/mjhService'
+    import zgood from '../../component/common/good.vue'
     export default {
+        components:{'z-good':zgood},
         data () {
             return {
-                title:""
+                title:"文章详情页",
+                good:null
             }
-        },
-        computed:{
-
         },
         syncData({store}) {
             /*基本规则
@@ -58,6 +55,10 @@
             * 可以使用DOM元素
             * 这里的数据可以放在data中
             * */
+            this.good ={
+                id : '5a40a2ecfde98828ea931d8f',
+                type : '1'
+            }
 
 
         },
@@ -67,7 +68,6 @@
     }
 </script>
 <style lang="less">
-    /*rem等基本设置都放在base中，不写多个*/
-    @import url('../../assets/css/base.less');
+    
 </style>
 

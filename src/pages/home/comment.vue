@@ -4,10 +4,10 @@
     -->
     <div id="comment" v-set-title="title">
         <div class="page-title"><z-history :type="1"></z-history>评论专区
-            <span v-if="commentlists.length > 0">({{commentlists.length}}条)</span>
+            <span v-if="commentlists.length > 0">({{totalCount}}条)</span>
         </div>
         <div class="comment-box">
-            <div v-if="commentlists.length < 1" class="commentlists-no">成为第一个评论的人</div>
+            <div v-if="commentlists.length == 0" class="commentlists-no">成为第一个评论的人</div>
             <div class="comment-list" v-for="(item,index) in commentlists"  v-if="commentlists.length > 0">
                 <div class="comment-list-left" v-if="item.userHeadImg != null && item.userHeadImg != ''">
                     <img :src='$store.state.picHead + item.userHeadImg'>
@@ -19,7 +19,7 @@
                     <div class="comment-list-top">
                         <div>
                             <span class="comment-list-name">{{item.userName}}</span>
-                            <span class="comment-list-vip">会员</span>
+                            <span class="comment-list-vip" v-if="item.vip == true">会员</span>
                         </div>
                         <div class="comment-list-reply" @click="onreply(item.id,item.userName,item.userId,0,index)" v-if="backShow">回复</div>
                         <router-link :to="{name:'login'}">
@@ -71,7 +71,9 @@
                 page:{num:1,size:8},
                 busy : false,
                 good:null,
-                lastPage:false
+                lastPage:false,
+                totalCount:null,
+                commentlist:[]
             }
         },
 //         syncData({store}) {
@@ -154,8 +156,12 @@
                         }
                         for (let i = 0; i < dataArr.length; i++) {
                             that.commentlists.push(dataArr[i]);
+                            that.commentlists.splice(i,1,that.commentlists[i])
+                            console.log(that.commentlists,'评论后')
                         }
+                        that.totalCount = res.data.datas.totalCount;
                         console.log(that.commentlists)
+                        
                         //          加载完成后busy为false，如果最后一页则lastpage为true
                         if(that.page.num < res.data.datas.totalPage){
                             that.busy = false
@@ -170,9 +176,17 @@
             },
             //循环遍历
             getFormats: function (array) {
+                console.log(array,'用户')
                 let that = this;
                 for (let i = 0; i < array.length; i++) {
                     array[i].commentTime = common.getFormatOfDate(array[i].commentTime,'yyyy-MM-dd h:m:s')
+                    mjhService.useVip({userId:array[i].userId}).then(function(res){
+                        array[i].vip = res.data.datas;
+                        
+                        array.splice(i,1,array[i])
+
+                        // console.log(array[i],i,array[i].vip,'userId判断用户是否为会员')
+                    })
                 }
                 return array
             }
