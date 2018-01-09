@@ -29,6 +29,14 @@ const home = (resolve) => {require(['./pages/home/home.vue'],resolve)}
 // 直播
 const live = (resolve) => {require(['./pages/home/home.vue'],resolve)}
 const liveDetails = (resolve) => {require(['./pages/home/home.vue'],resolve)}
+ //首页
+const index = (resolve) => {require(['./pages/home/index.vue'],resolve)}
+ //文章
+const list = (resolve) => {require(['./pages/article/list.vue'],resolve)}
+const article = (resolve) => {require(['./pages/article/details.vue'],resolve)}
+//专题
+const specialList = (resolve) => {require(['./pages/special/list.vue'],resolve)}
+const special = (resolve) => {require(['./pages/special/details.vue'],resolve)}
 // 404错误页面
 const error = (resolve) => {require(['./pages/error.vue'],resolve)}
 
@@ -39,7 +47,16 @@ const routers = [
     {name: 'err',path:'/s/404',component: error}, //错误跳到404页面
     // 直播
     {name: 'live',path:'/lives',component: live},
-    {name: 'liveDetails',path:'/lives/detail/:liveDetailId',component: liveDetails}
+    {name: 'liveDetails',path:'/lives/detail/:liveDetailId',component: liveDetails},
+    //首页
+    {name: 'index',path:'/index',component: index},
+    // 文章
+    {name: 'article',path:'/article',component: article},
+    {name: 'list',path:'/article/list',component: list},
+    //专题
+    {name: 'special',path:'/special',component: special},
+    {name: 'specialList',path:'/special/list',component: specialList},
+    
 ]
 
 const router = new VueRouter({
