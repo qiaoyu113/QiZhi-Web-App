@@ -27,8 +27,13 @@ Vue.component('z-home', backhome)
 const short = (resolve) => {require(['./pages/short.vue'],resolve)}
 const home = (resolve) => {require(['./pages/home/home.vue'],resolve)}
 // 直播
-const live = (resolve) => {require(['./pages/home/home.vue'],resolve)}
-const liveDetails = (resolve) => {require(['./pages/home/home.vue'],resolve)}
+const live = (resolve) => {require(['./pages/live/index.vue'],resolve)}
+const liveDetails = (resolve) => {require(['./pages/live/details.vue'],resolve)}
+// 登录
+const register = (resolve) => {require(['./pages/login/register.vue'],resolve)}
+const login = (resolve) => {require(['./pages/login/login.vue'],resolve)}
+const loginPwd = (resolve) => {require(['./pages/login/loginPwd.vue'],resolve)}
+const forgotPwd = (resolve) => {require(['./pages/login/forgotPwd.vue'],resolve)}
 // 404错误页面
 const error = (resolve) => {require(['./pages/error.vue'],resolve)}
 
@@ -39,7 +44,12 @@ const routers = [
     {name: 'err',path:'/s/404',component: error}, //错误跳到404页面
     // 直播
     {name: 'live',path:'/lives',component: live},
-    {name: 'liveDetails',path:'/lives/detail/:liveDetailId',component: liveDetails}
+    {name: 'liveDetails',path:'/lives/details/:watchNo',component: liveDetails},
+    // 登录
+    {name: 'register',path:'/register',component: register},
+    {name: 'login',path:'/login',component: login},
+    {name: 'loginPwd',path:'/login/cell',component: loginPwd},
+    {name: 'forgotPwd',path:'/login/forgot',component: forgotPwd}
 ]
 
 const router = new VueRouter({

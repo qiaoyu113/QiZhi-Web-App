@@ -4,7 +4,7 @@
 import axios from 'axios';
 import store from '../vuex/'
 
-axios.defaults.baseURL = 'http://api.shequyi.com';
+axios.defaults.baseURL = 'http://api.qizhi.vjuzhen.com';
 
 let win = typeof window
 let isClient = false
@@ -15,6 +15,7 @@ if(win && win != 'undefined'){
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前加toke
     let xtoken = isClient ? localStorage.token : null;
+    // config.headers['shopId'] = 694275;
     if(xtoken != null){
         config.headers['Authorization'] = 'bearer ' +  xtoken
     }
