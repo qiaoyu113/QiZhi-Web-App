@@ -1,21 +1,6 @@
 <template>
   <div class="login">
-    <login-close></login-close>
-    <form class="login-form">
-      <p class="login-title">手机验证码登录</p>
-      <phone v-on:listenToPhone="showMessFromChild"></phone>
-      <!--<kapt-sms v-on:listenToSmsCode="showMessFromChild"></kapt-sms>-->
-      <div class="item forget-item blank"></div>
-      <div class="item"><p class="form-btn btn3" @click="submit">快捷登录</p></div>
-      <p class="btn-under font1" @click="goToTarget('register')">新用户注册</p>
-    </form>
-    <div class="loginType">
-      <p class="item" @click="getThirdUrl('wx')" v-if=" platform === 'WXH5' "><i class="iconfont icon-weixin1 wx"></i><span>微信登录</span></p>
-      <!--<p class="item" @click="getThirdUrl('qq')"><i class="iconfont icon-koukou qq"></i><span>QQ登录</span></p>-->
-      <!--<p class="item" @click="getThirdUrl('wb')"><i class="iconfont icon-sina wb"></i><span>微博登录</span></p>-->
-      <p class="item" @click="goToTarget('password')"><i class="iconfont icon-mima mm"></i><span>密码登录</span></p>
-    </div>
-    <z-modal :msgs="msg"></z-modal>
+
   </div>
 </template>
 <script type="text/ecmascript-6">

@@ -3,19 +3,23 @@
         <div class="item" v-for="item in arrays" @click="goToDetail(item.id)">
             <div class="left">
                 <img class="cover" :src="item.cover">
-                <span class="mark grey" v-if="item.state=='已结束'"><span class="txtScale">{{ item.state }}</span></span>
-                <span class="mark yellow" v-else><span class="txtScale">{{ item.state }}</span></span>
+                <span class="mark grey" v-if="item.liveStatus==3 && item.playback==0"><span class="txtScale">已结束</span></span>
+                <span class="mark yellow" v-if="item.liveStatus==3 && item.playback==1"><span class="txtScale">回放</span></span>
+                <span class="mark yellow" v-if="item.liveStatus==2"><span class="txtScale">直播中</span></span>
+                <span class="mark yellow" v-if="item.liveStatus==1"><span class="txtScale">未开始</span></span>
             </div>
             <div class="right">
                 <p class="p1">{{ item.title }}</p>
-                <p class="p2">{{ item.time }}</p>
-                <p class="p3">{{ item.peoNum }}</p>
-                <p class="p4">{{ item.price }}</p>
+                <p class="p2">{{ item.startTime }}</p>
+                <p class="p3" v-if="item.liveStatus==2">{{ item.watchNum }}</p><!--观看直播人数-->
+                <p class="p3" v-if="item.liveStatus==1">{{ item.subscribeNum }}</p><!--预约人数-->
+                <p class="p4">{{ item.fee }}</p>
             </div>
         </div>
     </div>
 </template>
 <script type="text/ecmascript-6">
+  import {common} from '../../assets/js/common/common'
   export default {
     props: ['collection'],
     data () {
@@ -25,7 +29,15 @@
     },
     components: {},
     mounted () {
-        this.arrays = this.collection;
+        let that = this;
+        let temp = that.collection;
+        for(let i=0;i<temp.length;i++){
+            temp[i].cover = that.$store.state.picHead + temp[i].cover;
+            temp[i].startTime = common.getFormatOfDate(temp[i].startTime*1,'yyyy-MM-dd hh:mm');
+            temp[i].fee = common.getFormatOfPrice(temp[i].fee);
+            that.arrays.push(temp[i]);
+        }
+        //this.arrays = this.collection;
     },
     methods: {
         goToDetail (no) {

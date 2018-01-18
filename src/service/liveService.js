@@ -13,8 +13,8 @@ export const liveService = {
     getLiveList: function(params) { // 获得直播列表
         return axios.get('/lives' + this.getParam(params))
     },
-    getLiveInfo: function(shopId, watchNo) { // 获取详情页基本信息
-        return axios.get('/shops/' + shopId + '/lives/'+ watchNo)
+    getLiveInfo: function(watchNo) { // 获取详情页基本信息
+        return axios.get('/lives/'+ watchNo)
     },
     appointment: function (shopId, watchNo) { // 预约直播
         return axios.put('/shops/' + shopId + '/lives/'+ watchNo + '/appointment')
