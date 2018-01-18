@@ -12,10 +12,10 @@
       <div class="countdown" v-if="liveObject.liveStatus === 1"><!--未开始-->
         <p class="timeR">
           倒计时
-          <!--<span class="cd" id="dd"> {{ toOrder.timeR.dd }}</span>:-->
-          <!--<span class="cd" id="hh">{{ toOrder.timeR.hh }}</span>:-->
-          <!--<span class="cd" id="mm">{{ toOrder.timeR.mm }}</span>:-->
-          <!--<span class="cd" id="ss">{{ toOrder.timeR.ss }}</span>-->
+          <span class="cd" id="dd"> {{ toOrder.timeR.dd }}</span>:
+          <span class="cd" id="hh">{{ toOrder.timeR.hh }}</span>:
+          <span class="cd" id="mm">{{ toOrder.timeR.mm }}</span>:
+          <span class="cd" id="ss">{{ toOrder.timeR.ss }}</span>
         </p>
       </div>
       <div class="d-cover" v-if="liveObject.liveStatus === 2"><!--直播中-->
@@ -177,7 +177,28 @@
            console.log('详情', res);
            if(res.data.success){
              that.liveObject = res.data.datas;
+             // 基本信息处理
              that.liveObject.pubCover = that.$store.state.picHead + that.liveObject.pubCover;
+
+
+             if(that.liveObject.liveStatus === 1){//未开始
+               //倒计时操作
+             }
+             if(that.liveObject.liveStatus === 2 && that.liveObject.watchType === 1){ //直播中公开
+                that.isShowVideo = 1; // 显示播放器
+             }
+             else if(that.liveObject.liveStatus === 2 && that.liveObject.watchType === 2){ //直播中付费
+                that.liveMessage = '购买后才可以观看';
+             }
+             else if(that.liveObject.liveStatus === 2 && that.liveObject.watchType === 3){ //直播中密码
+                that.liveMessage = '输入密码后才可以观看';
+             }
+             if(that.liveObject.liveStatus === 3 ){//直播结束
+
+             }
+
+             // 不同状态处理，直播目前所处于的状态liveStatus=1.未开始2.直播中3.已结束
+             // 不同状态处理，直播观看方式是免费，收费，密码？watchType=1.公开（免费）2.付费3.密码
 
            }else{}
          });
