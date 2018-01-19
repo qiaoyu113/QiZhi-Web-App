@@ -8,8 +8,8 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import {commonService} from '../../service/commonService'
-  import {loginCommon} from '../../assets/js/login/loginCommon'
+  //import {commonService} from '../../service/commonService'
+  //import {loginCommon} from '../../assets/js/login/loginCommon'
   import {common} from '../../assets/js/common/common'
   import {validate} from '../../assets/js/common/validate'
 
@@ -37,54 +37,54 @@
         // 获取短信验证码效果//需要将手机号和图片验证码框传递过来
 
         let that = this
-        that.phoneNo= that.$store.state.loginStore.phoneNo
-        that.kaptchaKey= that.$store.state.loginStore.kaptchaKey // 图片验证码生成
-        that.kaptchaValue= that.$store.state.loginStore.kaptchaValue // 图片验证码输入的
-
-        if(that.phoneNo.trim('').length > 0){
-          if(!validate.isPhoneNumber(that.phoneNo)){
-            that.$emit('listenToSmsCode', '请填写正确的手机号格式');
-          }else {
-            //that.valImg(event)
-            // 发送请求 type: 1.注册；2.手机（动态验证码）登陆并注册；3.手机充值密码
-            if(that.kaptchaKey!= '' && that.kaptchaValue != ''){
-              commonService.getValidateMess({phone: that.phoneNo, type: that.$store.state.loginStore.smsType, kaptchaKey:that.kaptchaKey,kaptchaValue:that.kaptchaValue}).then(function (res) {
-                //console.log('mess', res);
-                if(res.data.success){  // 返回正确
-                  let count = 0;
-                  that.isFlag = 0; //显示倒计时
-                  if(that.isFlag) {
-                    clearInterval(that.$store.state.loginStore.timer);
-                  }else {
-                    that.$store.state.loginStore.timer = setInterval(function () {
-                      count = parseInt(document.getElementById('countDown').innerHTML) - 1;
-                      if(count > 0) {
-                        document.getElementById('countDown').innerHTML = count;
-                      }
-                      else{
-                        clearInterval(that.$store.state.loginStore.timer);
-                        that.isFlag = 1;
-                      }
-                    },1000);
-                  }
-                }else { //返回错误
-                  let errorMessage = '';
-                  if(res.data.code >= 510100 && res.data.code <= 510400){
-                    errorMessage = res.data.message;
-                    that.$emit('listenToSmsCode', errorMessage);
-                  }
-                }
-              });
-            }else {
-              that.$emit('listenToSmsCode', '请先填写图片验证码');
-            }
-          }
-        }
-        else
-        {
-          //that.pop('请输入手机号')
-          return false;
-        }
+//        that.phoneNo= that.$store.state.loginStore.phoneNo
+//        that.kaptchaKey= that.$store.state.loginStore.kaptchaKey // 图片验证码生成
+//        that.kaptchaValue= that.$store.state.loginStore.kaptchaValue // 图片验证码输入的
+//
+//        if(that.phoneNo.trim('').length > 0){
+//          if(!validate.isPhoneNumber(that.phoneNo)){
+//            that.$emit('listenToSmsCode', '请填写正确的手机号格式');
+//          }else {
+//            //that.valImg(event)
+//            // 发送请求 type: 1.注册；2.手机（动态验证码）登陆并注册；3.手机充值密码
+//            if(that.kaptchaKey!= '' && that.kaptchaValue != ''){
+//              commonService.getValidateMess({phone: that.phoneNo, type: that.$store.state.loginStore.smsType, kaptchaKey:that.kaptchaKey,kaptchaValue:that.kaptchaValue}).then(function (res) {
+//                //console.log('mess', res);
+//                if(res.data.success){  // 返回正确
+//                  let count = 0;
+//                  that.isFlag = 0; //显示倒计时
+//                  if(that.isFlag) {
+//                    clearInterval(that.$store.state.loginStore.timer);
+//                  }else {
+//                    that.$store.state.loginStore.timer = setInterval(function () {
+//                      count = parseInt(document.getElementById('countDown').innerHTML) - 1;
+//                      if(count > 0) {
+//                        document.getElementById('countDown').innerHTML = count;
+//                      }
+//                      else{
+//                        clearInterval(that.$store.state.loginStore.timer);
+//                        that.isFlag = 1;
+//                      }
+//                    },1000);
+//                  }
+//                }else { //返回错误
+//                  let errorMessage = '';
+//                  if(res.data.code >= 510100 && res.data.code <= 510400){
+//                    errorMessage = res.data.message;
+//                    that.$emit('listenToSmsCode', errorMessage);
+//                  }
+//                }
+//              });
+//            }else {
+//              that.$emit('listenToSmsCode', '请先填写图片验证码');
+//            }
+//          }
+//        }
+//        else
+//        {
+//          //that.pop('请输入手机号')
+//          return false;
+//        }
 
       },
       validateFromPhone () {

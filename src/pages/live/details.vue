@@ -3,7 +3,7 @@
     <z-history :type="2"></z-history>
     <!--存放播放器的区域-->
     <div class="live-show" v-if="isShowVideo">
-      <live-video></live-video>
+      <!--<live-video></live-video>-->
       <span class="having-people vjs-paused" v-if="liveObject.liveStatus === 2">{{ socketPerson }}人</span>
     </div>
     <!--直播的没有播放器的三种情况-->
@@ -30,57 +30,57 @@
       </div>
     </div>
     <!--tab切换-->
-    <!--<div class="live-mid">-->
-      <!--<span class="live-mid-item cur-item" @click="howToShow(1,$event)">直播简介</span>-->
-      <!--<span class="live-mid-item" @click="howToShow(3,$event)">讲师</span>-->
-      <!--<span class="live-mid-item" @click="howToShow(2,$event)">交流区</span>-->
-    <!--</div>-->
+    <div class="live-mid">
+      <span class="live-mid-item cur-item" @click="howToShow(1,$event)">直播简介</span>
+      <span class="live-mid-item" @click="howToShow(3,$event)">讲师</span>
+      <span class="live-mid-item" @click="howToShow(2,$event)">交流区</span>
+    </div>
     <!--详情介绍，交流区，讲师-->
-    <!--<div class="live-bot">-->
-      <!--<div class="live-bot-details" v-if="liveMid === 1">&lt;!&ndash;详情编辑器内容&ndash;&gt;-->
-        <!--<p class="intro-title">{{ liveObject.title }}</p>-->
-        <!--<p class="intro-des">{{ liveObject.startTime }}开始|{{ liveObject.subscribeNum }}人报名</p>-->
-        <!--<div class="intro-aws paddingBottom" v-html="liveObject.description"></div>-->
-      <!--</div>-->
+    <div class="live-bot">
+      <div class="live-bot-details" v-if="liveMid === 1"><!--详情编辑器内容-->
+        <p class="intro-title">{{ liveObject.title }}</p>
+        <p class="intro-des">{{ liveObject.startTime }}开始 | {{ liveObject.subscribeNum }}人报名</p>
+        <div class="intro-aws paddingBottom" v-html="liveObject.description"></div>
+      </div>
       <!--<chat-room class="live-bot-chat" v-if="liveMid === 2"></chat-room>&lt;!&ndash;交流区&ndash;&gt;-->
-      <!--<div class="chatRoom live-bot-chat" v-if="liveMid === 3">&lt;!&ndash;讲师&ndash;&gt;-->
-        <!--<div  class="chat-room-info" id="chatZoneTea" >-->
-          <!--<div class="chat-item teacher">-->
-            <!--<div class="photo chatRoom-t-photo"></div>&lt;!&ndash;为了方便一键换头像&ndash;&gt;-->
-            <!--<div class="talk">-->
-              <!--<p class="nike">讲师</p>-->
-              <!--<div class="mess">-->
-                <!--<i class="mess-trangle background1"></i>-->
-                <!--<div class="mess-con mess-box">{{ liveObject.startTime }}开始直播：{{ liveObject.title }}</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="chat-item image t" v-if="item.type === 2" v-for="item in teachMess">-->
-            <!--<div class="photo chatRoom-t-photo"></div>&lt;!&ndash;为了方便一键换头像&ndash;&gt;-->
-            <!--<div class="talk">-->
-              <!--<p class="nike">讲师</p>-->
-              <!--<div class="mess">-->
-                <!--<img class="pic" :src="item.msg">-->
-                <!--<p class="imgCover">-->
-                  <!--<span class="bar bar-top"></span>-->
-                  <!--<span class="bar bar-bot"></span>-->
-                <!--</p>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="chat-item teacher" v-else>-->
-            <!--<div class="photo chatRoom-t-photo"></div>&lt;!&ndash;为了方便一键换头像&ndash;&gt;-->
-            <!--<div class="talk">-->
-              <!--<p class="nike">讲师</p>-->
-              <!--<div class="mess">-->
-                <!--<i class="mess-trangle background1"></i>-->
-                <!--<div class="mess-con mess-box" v-html="item.msg"></div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+      <div class="chatRoom live-bot-chat" v-if="liveMid === 3"><!--讲师-->
+        <div  class="chat-room-info" id="chatZoneTea" >
+          <div class="chat-item teacher">
+            <div class="photo chatRoom-t-photo"></div><!--为了方便一键换头像-->
+            <div class="talk">
+              <p class="nike">讲师</p>
+              <div class="mess">
+                <i class="mess-trangle background1"></i>
+                <div class="mess-con mess-box">{{ liveObject.startTime }}开始直播：{{ liveObject.title }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-item image t" v-if="item.type === 2" v-for="item in teachMess">
+            <div class="photo chatRoom-t-photo"></div><!--为了方便一键换头像-->
+            <div class="talk">
+              <p class="nike">讲师</p>
+              <div class="mess">
+                <img class="pic" :src="item.msg">
+                <p class="imgCover">
+                  <span class="bar bar-top"></span>
+                  <span class="bar bar-bot"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-item teacher" v-else>
+            <div class="photo chatRoom-t-photo"></div><!--为了方便一键换头像-->
+            <div class="talk">
+              <p class="nike">讲师</p>
+              <div class="mess">
+                <i class="mess-trangle background1"></i>
+                <div class="mess-con mess-box" v-html="item.msg"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -90,6 +90,7 @@
   import chatRoom from '../../component/live/chatroom.vue'
   import {appService} from '../../service/appService'
   import {liveService} from '../../service/liveService'
+  import {common} from '../../assets/js/common/common'
 
   export default {
     data () {
@@ -97,17 +98,9 @@
         watchNo: 0, //详情观看房间号
         isShowVideo: 0, //是否显示播放器
         socketPerson: 0, // 观看直播的在线人数
-        liveObject: '',
-//        liveObject: {
-//          cover: 'http://p0.qhimgs4.com/t01ce150b767122f35d.webp', // 封面图
-//          liveStatus: 2, // 直播所处于的状态 1.未开始 2.直播中 3.已结束
-//          watchType: 1, // 直播所属于的类型 1.公开 2.付费 3.密码
-//          title: '除了老字号，前门还有什么洋气小馆？名称显示全', // 直播标题
-//          startTime: '2017-12-31 14:00', // 直播开始时间
-//          subscribeNum: 123, // 直播报名人数
-//          description: '<p>的发送到非的第三方的</p>', // 直播报名人数
-//          aa: ''
-//        }, // 直播详情数据
+        liveObject: '',// 直播详情数据
+        liveMessage: '', // 直播中状态，的消息提示
+        liveMid: 1, // 三个tab的切换状态, 1.详情区 2.交流区 3.讲师区
         toOrder: { // 直播未开始
           timeR: {
             dd: '00',
@@ -117,12 +110,9 @@
           },// 倒计时的天、时、分、秒
           isBook: 0 // 是否预约了
         },
-        liveMessage: '购买后才可以观看', // 直播中状态，的消息提示
         finish: { // 直播已结束
           isWatchBack: 1 // 是否允许回放
         },
-        liveMid: 1, // 三个tab的切换状态, 1.详情区 2.交流区 3.讲师区
-//        socketPerson: 0, // 观看直播的在线人数
       }
     },
     components: { 'live-video': video, 'chat-room': chatRoom},
@@ -178,11 +168,13 @@
            if(res.data.success){
              that.liveObject = res.data.datas;
              // 基本信息处理
+             let startTime = that.liveObject.startTime; //先保存下来开始时间的时间戳格式
              that.liveObject.pubCover = that.$store.state.picHead + that.liveObject.pubCover;
-
-
+             that.liveObject.startTime = common.getFormatOfDate(startTime*1, 'yyyy-MM-dd hh:mm')
+               console.log('startTime  ', startTime);
              if(that.liveObject.liveStatus === 1){//未开始
                //倒计时操作
+                 console.log('startTime 未开始', startTime);
              }
              if(that.liveObject.liveStatus === 2 && that.liveObject.watchType === 1){ //直播中公开
                 that.isShowVideo = 1; // 显示播放器
@@ -245,7 +237,6 @@
 </script>
 <style lang="less">
   /*rem等基本设置都放在base中，不写多个*/
-  @import url('../../assets/css/base.less');
   @import url('../../assets/css/live/live.less');
 </style>
 

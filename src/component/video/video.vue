@@ -1,10 +1,8 @@
 <!--suppress ALL -->
 <template>
-   <video-player class="video-player-box" :options="playerOptions"></video-player>
-</template><!--id="videoPlayer" -->
+   <!--<video-player class="video-player-box" :options="playerOptions"></video-player>-->
+</template>
 <script type="text/ecmascript-6">
-//  require ('video.js/dist/video-js.css')
-//  require ('vue-video-player/src/custom-theme.css')
   import {videoPlayer} from 'vue-video-player'
   import videoJsHls from '../../assets/js/common/video/videojs-contrib-hls'
 
@@ -12,14 +10,14 @@
     props: ['video'],
     data () {
       return {
-        /*playerOptions: { // 视频播放器
+        playerOptions: { // 视频播放器
           autoplay: false,
           controls: true,
           sourceOrder: true,
           errorDisplay : false,
            sources: [],
           poster: '',
-        }*/
+        }
       }
     },
    computed:{
