@@ -13,6 +13,7 @@
 @size10: .2667rem;
 @size11: .2933rem;
 @size12: .32rem;
+@size13: .3467rem;
 @size14: .3733rem;
 @size15: .4rem;
 @size16: .4rem;
@@ -23,16 +24,21 @@
 @size24: .64rem;
 @size25: .6667rem;
 @size28: .7467rem;
+@size30: .8rem;
 @size33: .88rem;
 @size36: .96rem;
 @size40: 1.0667rem;
 @size44: 1.1733rem;
 @size50: 1.3333rem;
+@size52: 1.3867rem;
 @size53: 1.4133rem;
 @size76: 2.0267rem;
 @size98: 2.6133rem;
+@size100: 2.6667rem;
+@size110: 2.9333rem;
 @size120: 3.2rem;
 @size135: 3.6rem;
+@size148: 3.9467rem;
 @size150: 4rem;
 @size200: 5.3333rem;
 @size295: 7.8667rem;
@@ -79,22 +85,24 @@
   box-sizing: border-box;
 }
 .login{
+  display:flex;flex-direction: column;position:relative;
   .login-close{width:100%;height: @size28;margin:@size20 0 0 0;display:flex;justify-content:flex-start;}
   .login-close{
     .icon-guanbi2{font-size: @size24;color:#bbb;}
   }
-  .login-form{}
   .login-form{
+    margin-top: @size110;
     .login-title{margin-bottom: @size40;font-size: @size18;color: #5E6D82;text-align:center;}
-    .item{margin-bottom: @size15;position:relative;}
     .item{
-      .form-ipt{width: @size295;height: @size44;padding: @size4 @size10;font-size: @size14;color:#333; border:1px solid #ddd;-webkit-appearance:none; /* 解决ios文本框上阴影 */outline:none;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
-      .form-btn{width: @size295;height: @size44;line-height: @size44;font-size: @size18;text-align:center;letter-spacing: 1px;border:none;outline:none;/*.btnStyle(@btnColor,@btnBgColor,@btnBorColor);*/-webkit-border-radius: @size50;-moz-border-radius: @size50;border-radius: @size50;}
-      .form-btn-enable{.btnStyle(#fff,#bbb,#bbb)}
+      margin-bottom: @size24;position:relative;
+      .form-ipt{width: @size295;height: @size52;line-height: @size52;padding: @size4 @size10;font-size: @size14;color:#333;border:none; border-bottom:1px solid #eee;/*border:1px solid #ddd;*/-webkit-appearance:none; /* 解决ios文本框上阴影 */outline:none;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+      .form-btn{width: @size295;height: @size40;line-height: @size40;font-size: @size16;text-align:center;letter-spacing: 1px;border:none;outline:none;.btnStyle(#333,#fc0,#fc0);-webkit-border-radius: @size50;-moz-border-radius: @size50;border-radius: @size50;}
+      .form-btn-enable{.btnStyle(#333,#bbb,#bbb)}
+      .form-btn-marT{margin-top: @size40;}
       .iconfont{font-size: @size18;/*color:#E5E9F2;*/position:absolute;top: @size12;right: @size10;}
       .namePwd{.iptPaddingRight(@size40);}
       .validatePhone{.iptPaddingRight(@size150);}
-      .validateFromPhone{/*color:@mainColor;*/position:absolute;top: 0;right:0;bottom:0;padding-right:@size15;/*width: @size120;*/height: @size44;line-height: @size44;font-size: @size14;text-align:center;
+      .validateFromPhone{color:@mainColor;position:absolute;top: 0;right:0;bottom:0;padding-right:@size15;/*width: @size120;*/height: @size44;line-height: @size44;font-size: @size14;text-align:center;
         display:flex; align-items:center;
         .mid-line{height:@size22;margin-right: @size15;border-left:1px solid #E5E9F2;}
       }
@@ -125,13 +133,16 @@
     .argumentItem,.forgetPwd{/*color: #69f;*/}
     .argumentItem{font-size: @size12;}
     .forgetPwd{font-size: @size14;}
-    .btn-under{margin-bottom: @size50;font-size: @size14;text-align:center;}
+    .btn-under{/*margin-bottom: @size50;*/font-size: @size12;text-align:left;
+      .small{font-size:@size12;color:#69f;}
+      .forget{font-size:@size13;float:right;}
+    }
     .blank{height:9px;}
     /* 微信二维码 */
     .canvas{width: @size200;height: @size200;padding: @size10;margin:0 auto;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
     .canvas-des{margin:@size15 0 @size40;line-height: @size20;font-size: @size14;color: #999;}
   }
-  .loginType{width:@size295;margin:0 auto;display:flex;justify-content: space-around;/*justify-content: space-between;*/align-items:flex-end;align-self:flex-end;}
+  .loginType{width:@size295;position:absolute;bottom:@size10;left: 50%;margin-left:-@size148;display:flex;justify-content: space-around;align-self: flex-end; /*justify-content: space-between;*/align-items:flex-end;align-self:flex-end;}
   .loginType{
     .item{height: @size76;}
     .item{

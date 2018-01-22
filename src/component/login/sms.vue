@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div class="item">
-      <input type="number" class="form-ipt validatePhone" placeholder="4位短信验证码" v-model="mess" @blur="validateFromPhone">
-      <span class="validateFromPhone" v-if="isFlag" @click="getFromPhone"><i class="mid-line"></i>获取验证码</span>
-      <span class="validateFromPhone validateWaiting" v-else>(<span id="countDown">60</span>s)重新获取</span>
-    </div>
+  <div class="item">
+    <input type="number" class="form-ipt validatePhone" placeholder="4位短信验证码" v-model="mess" @blur="validateFromPhone">
+    <span class="validateFromPhone" v-if="isFlag" @click="getFromPhone">获取验证码</span>
+    <span class="validateFromPhone validateWaiting" v-else>(<span id="countDown">60</span>s)重新获取</span>
   </div>
 </template>
 <script type="text/ecmascript-6">

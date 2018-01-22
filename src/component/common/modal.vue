@@ -30,12 +30,18 @@
            <img class="original" :src="msgs.imageUrl">
         </div>
       </div>
-
+      <div class="tips-gt" v-if="msgs.type === 6">
+        <div class="center">
+          <div id="captcha-box"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import $ from 'jquery'
+
 export default {
   data () {
     return {
@@ -44,10 +50,42 @@ export default {
   },
   props:['msgs'],
   mounted: function() {
+
+    //-------------------
+    this.getGt();
   },
   methods: {
     close:function(){
       this.msgs.type = 0;
+    },
+    getGt: function () {
+      $.ajax({
+        // 获取id，challenge，success（是否启用failback）
+        url: "http://admin.saas.vjuzhen.com/open/initcaptcha?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+          // 使用initGeetest接口
+          // 参数1：配置参数
+          // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+          initGeetest({
+            // 省略配置参数
+            gt: data.gt, //字符串类型。验证 id，极验后台申请得到
+            challenge: data.challenge,//字符串类型。验证流水号，后服务端 SDK 向极验服务器申请得到
+            offline:  !data.success,//布尔类型。极验API服务器是否宕机（即处于 fallback 状态）
+            //new_captcha: ,//布尔类型。宕机情况下使用，表示验证是 3.0 还是 2.0，3.0 的 sdk 该字段为 true
+            //product: 'bind'
+            product: 'popup'
+          }, function (captchaObj) {
+            captchaObj.appendTo('#captcha-box');
+            // 省略其他方法的调用
+            captchaObj.onError(function () {
+              // 出错啦，可以提醒用户稍后进行重试
+              // console.log('进入出错方法')
+            });
+          });
+        }
+      });
     },
     ok: function () {
       // 用于解决弹框输密码的功能
@@ -62,7 +100,7 @@ export default {
 <style>
   .modal{width:100%;height:100%;position:fixed;z-index:100;top:0;left:0;display:flex;justify-content: center;align-items:center;}
   .tips{ z-index:200;animation: showPop 2s ease 0s;max-width:295px;padding:14px 30px;line-height:24px;font-size: 16px;color: #FFF;opacity:0;background: #000;border-radius: 4px;}
-  .tips3,.tips4,.tips-photo{width:100%;height:100%;background:rgba(0,0,0,.5);display:flex;justify-content: center;align-items: center;}
+  .tips3,.tips4,.tips-photo,.tips-gt{width:100%;height:100%;background:rgba(0,0,0,.5);display:flex;justify-content: center;align-items: center;}
   .tips3 .center,.tips4 .center{width:270px;height:138px;background:#fff;border-radius: 12px;}
   .tips3 .center .confirm-info,.tips4 .center .confirm-info{width:100%;height:93px;font-size: 13px;display:flex;justify-content: center;align-items: center;}
   .tips3 .center .confirm-btn,.tips4 .center .confirm-btn{width:100%;height:44px;line-height:44px;text-align:center;font-size: 17px;color: #0076FF;border-top:1px solid #eee;}
@@ -71,6 +109,8 @@ export default {
   .tips-photo .icon-guanbi2{font-size:.8rem;color:#ddd;position:absolute;top:.4rem;right:.4rem;}
   .tips-photo .center{width:90%;margin:0 auto;display:flex;align-items: center; justify-content: center;}
   .tips-photo .center .original{max-width:100%;max-height:100%;}
+  /* 极客验证 */
+  .tips-gt .center{width:100px;height:100px;background:#ddd;}
     @keyframes showPop{
       0%{
           -webkit-transform: scale(.1);

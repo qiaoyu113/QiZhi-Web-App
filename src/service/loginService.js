@@ -40,6 +40,12 @@ export const loginService = {
     findPwd: function (params) {
         return axios.put('/passwords/phone' + this.getParam(params));
     },
+    getSmsCode: function (params) {
+        return axios.get('/users' + this.getParam(params));
+    },
+    validataSmsCode: function (params) {
+        return axios.post('/users', this.getParam(params));
+    },
     packageUserInfo (info) {
         let that = this
         let Base64 = require('js-base64').Base64;

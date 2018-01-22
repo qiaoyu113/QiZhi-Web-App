@@ -8,8 +8,8 @@ const groceryStore = {
             name: 'home', // 路由name
             params: '' // 路由参数
         }, //返回路径
-        //直播是否连接
-        chatRoomHost: 0 //
+        chatRoomHost: 0, ////直播是否连接
+        visitedUrl: [] //整个项目中走过哪些页面
         //imgBaseUrl: 'http://test.resource.vjuzhen.com/' //图片基本路径
 
     },
