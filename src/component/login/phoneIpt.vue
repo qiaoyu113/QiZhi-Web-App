@@ -5,7 +5,6 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import {validate} from '../../assets/js/common/validate'
   export default {
     props: [],
     data () {
@@ -18,24 +17,24 @@
     methods: {
       iptLength (event) { // 动态监测帐号文本框字符长度
         let that = this,obj = event.currentTarget;
-        that.iptLength(obj);
+        that.iptLen(obj);
         that.$store.state.loginStore.phoneNo = that.phoneNo
       },
       reset (event) { // 清空帐号文本框
         let that = this;
         let obj = event.currentTarget;
         let parent = obj.parentNode;
-        let firstChild = parent.firstChild;
-        firstChild.value = '';
-        that.iptLength(firstChild);
-      },
-      iptLength (obj) {
-        let parent = obj.parentNode;
         let lastChild = parent.lastChild;
+        lastChild.className = 'iconfont icon-Shape hide';
+        that.phoneNo = '';
+      },
+      iptLen (obj) {//显示清除图标
+        let pant = obj.parentNode;
+        let lastChild = pant.lastChild;
         if(obj.value.trim().length > 0 ){
-          lastChild.className = 'iconfont icon-Shape'
+          lastChild.className = 'iconfont icon-Shape';
         }else{
-          lastChild.className = 'iconfont icon-Shape hide'
+          lastChild.className = 'iconfont icon-Shape hide';
         }
       },
     }

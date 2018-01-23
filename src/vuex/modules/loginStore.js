@@ -14,6 +14,7 @@ const loginStore = {
         redirect_uri: '', // 登录页面之前的地址
         platform: '', // 登录平台类型
         thirdInfo: '', //第三方登录绑定手机号
+        geetest: '', //极客验证保存参数
         smsType: 0 //判断是哪种行为的短信验证码， 1.注册；2.手机（动态验证码）登陆并注册；3.手机充值密码
 
     },

@@ -8,6 +8,8 @@ Vue.use(Vuex);
 
 
 import homeStore from './modules/homeStore'
+import loginStore from './modules/loginStore'
+import groceryStore from './modules/groceryStore'
 
 const store = new Vuex.Store({
     // 定义状态
@@ -24,6 +26,8 @@ const store = new Vuex.Store({
     },
     modules: {
         homeStore: homeStore,
+        loginStore: loginStore,
+        toolBox: groceryStore
     }
 })
 export default store

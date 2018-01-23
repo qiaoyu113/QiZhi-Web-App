@@ -31,16 +31,14 @@
         </div>
       </div>
       <div class="tips-gt" v-if="msgs.type === 6">
-        <div class="center">
-          <div id="captcha-box"></div>
-        </div>
+        <div class="center" id="cap"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import $ from 'jquery'
+import axios from 'axios'
 
 export default {
   data () {
@@ -50,42 +48,95 @@ export default {
   },
   props:['msgs'],
   mounted: function() {
-
-    //-------------------
-    this.getGt();
+  },
+  updated: function() {
+    if(this.msgs.type==6){
+      this.getGt();
+    }
   },
   methods: {
     close:function(){
       this.msgs.type = 0;
     },
     getGt: function () {
-      $.ajax({
-        // 获取id，challenge，success（是否启用failback）
-        url: "http://admin.saas.vjuzhen.com/open/initcaptcha?t=" + (new Date()).getTime(), // 加随机数防止缓存
-        type: "get",
-        dataType: "json",
-        success: function (data) {
-          // 使用initGeetest接口
-          // 参数1：配置参数
-          // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-          initGeetest({
-            // 省略配置参数
-            gt: data.gt, //字符串类型。验证 id，极验后台申请得到
-            challenge: data.challenge,//字符串类型。验证流水号，后服务端 SDK 向极验服务器申请得到
-            offline:  !data.success,//布尔类型。极验API服务器是否宕机（即处于 fallback 状态）
-            //new_captcha: ,//布尔类型。宕机情况下使用，表示验证是 3.0 还是 2.0，3.0 的 sdk 该字段为 true
-            //product: 'bind'
-            product: 'popup'
-          }, function (captchaObj) {
-            captchaObj.appendTo('#captcha-box');
-            // 省略其他方法的调用
-            captchaObj.onError(function () {
-              // 出错啦，可以提醒用户稍后进行重试
-              // console.log('进入出错方法')
+      var that = this;
+      axios.get('http://admin.saas.vjuzhen.com/open/initcaptcha?t=" + (new Date()).getTime()').then(function (res) {
+        // 使用initGeetest接口gt:"9966aae93f8e16fdd254b8adeffcddfa   challenge:107be150a425ee397d4f8716222f4242
+        // 参数1：配置参数
+        // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+        console.log('后台清洁球', res);
+          if(res.data.success){
+            var data = res.data;
+            initGeetest({
+              // 省略配置参数
+              gt: data.gt, //字符串类型。验证 id，极验后台申请得到
+              challenge: data.challenge,//字符串类型。验证流水号，后服务端 SDK 向极验服务器申请得到
+              offline:  !data.success,//布尔类型。极验API服务器是否宕机（即处于 fallback 状态）
+              new_captcha: true,//布尔类型。宕机情况下使用，表示验证是 3.0 还是 2.0，3.0 的 sdk 该字段为 true
+              //product: 'bind',
+              //product: 'popup',
+              product: 'custom',
+//              area: '#cap', // 假设页面有一个id为area的标签
+//              next_width: '300px',
+//              bg_color: 'black'
+            }, function (captchaObj) {
+              console.log('captchaObj', captchaObj);
+              captchaObj.appendTo("#cap");//将验证按钮插入到宿主页面中，参数可以是 id 选择器，也可以是具体的元素
+              //captchaObj.bindForm();//假如您的页面信息通过表单进行提交的，可以通过此接口将验证参数的结果绑定到一个表单上去
+              //captchaObj.getValidate();//获取二次验证所需的凭证
+              //captchaObj.reset();//重置验证到初始状态
+              //captchaObj.verify();// 供product为bind类型的验证使用，进行验证
+              captchaObj.onReady(function () {
+                //监听验证按钮的 DOM 生成完毕事件
+                //$("#wait").hide();
+                 //console.log(11111)
+              });
+              captchaObj.onSuccess(function () {
+                // 监听验证成功事件
+                var result = captchaObj.getValidate();
+                var geetest = {
+                  geetest_challenge: result.geetest_challenge,
+                  geetest_validate: result.geetest_validate,
+                  geetest_seccode: result.geetest_seccode,
+                }
+
+                console.log('成功', result);
+                //that.$store.state.loginStore.geetest = geetest;
+                that.$emit('geetest', geetest);
+                that.msgs.type = 0;
+              });
+              captchaObj.onError(function () {
+                //监听验证出错事件
+              });
+//              captchaObj.onClose(function () {
+//                //监听product为bind时的关闭验证事件
+//              });
+
+//                var result = captchaObj.getValidate();
+//                if (!result) {
+//                  $("#notice1").show();
+//                  setTimeout(function () {
+//                    $("#notice1").hide();
+//                  }, 2000);
+//                  e.preventDefault();
+//                }
+
+              // 将验证码加到id为captcha的元素里，同时会有三个input的值用于表单提交
+//              captchaObj.appendTo("#captcha1");
+//              captchaObj.onReady(function () {
+//                $("#wait1").hide();
+//              });
+
+              //captchaObj.appendTo('#captcha-box');
+              // 省略其他方法的调用
+//              captchaObj.onError(function () {
+//                // 出错啦，可以提醒用户稍后进行重试
+//                // console.log('进入出错方法')
+//              });
             });
-          });
-        }
+          }
       });
+
     },
     ok: function () {
       // 用于解决弹框输密码的功能
@@ -110,7 +161,7 @@ export default {
   .tips-photo .center{width:90%;margin:0 auto;display:flex;align-items: center; justify-content: center;}
   .tips-photo .center .original{max-width:100%;max-height:100%;}
   /* 极客验证 */
-  .tips-gt .center{width:100px;height:100px;background:#ddd;}
+  /*.tips-gt .center{width: 6.6667rem;height: 6.5067rem;}.tips-gt .center {width: 6.6667rem!important;height: 6.5067rem!important;}*/
     @keyframes showPop{
       0%{
           -webkit-transform: scale(.1);

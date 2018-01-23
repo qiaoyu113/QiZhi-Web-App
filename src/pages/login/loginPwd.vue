@@ -17,7 +17,7 @@
 </template>
 <script type="text/ecmascript-6">
   import phone from '../../component/login/phoneIpt.vue'
-  import pwd from '../../component/login/pwdIpg.vue'
+  import pwd from '../../component/login/pwdIpt.vue'
   import loginClose from '../../component/login/close.vue'
   import {common} from '../../assets/js/common/common'
   import {loginCommon} from '../../assets/js/login/loginCommon'

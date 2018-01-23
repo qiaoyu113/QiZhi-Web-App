@@ -61,14 +61,23 @@ const router = new VueRouter({
 let isClient = typeof window != 'undefined' ? true : false
 router.beforeEach((to, from, next) => {
     if(from.name == 'home' || from.name == 'activityList' || from.name == 'activity' || from.name == 'article' || from.name == 'columnlist' || from.name == 'knowledge' || from.name == 'articleList' || from.name == 'live'){
-        if(!isClient) return
+
+    if(!isClient) return
         store.state.height[from.name] = document.body.scrollTop
         // console.log(document.body.scrollTop,111);
     }
     next()
 })
 router.afterEach((to, from, next) => {
-
+// console.log('afterEach to', to);
+// console.log('afterEach from', from);
+// console.log('afterEach next', next);
+let temp = {
+    name: from.name,
+    params: from.params
+}
+//console.log('afterEach temp', temp);
+store.state.toolBox.visitedUrl.push(temp);
     function checkUrl() {
         if(to.name=='login' || to.name=='password' || to.name=='find' || to.name=='bind' || to.name=='register') return false
         else if(to.name=='wxbaselogin' || to.name=='wxlogin' || to.name=='wblogin' || to.name=='qqlogin' || to.name=='wxbaselogin') return false
