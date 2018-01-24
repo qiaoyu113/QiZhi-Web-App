@@ -3,7 +3,7 @@
     <close></close><!--关闭-->
     <form class="login-form">
       <phone-no v-on:listenToPhone="showMessFromChild"></phone-no> <!--手机号-->
-      <sms v-on:listenToPhone="showMessFromChild" v-on:getGeetest="getGeetestModal" ref="myTest"></sms><!--短信验证码-->
+      <sms v-on:listenToPhone="showMessFromChild" v-on:getGeetest="getGeetestModal"  :geetest="myTest"></sms><!--短信验证码-->
       <div class="item" v-if="isLogin" @click="submit"><p class="form-btn form-btn-marT btn3">登录</p></div>
       <div class="item" v-else  @click="submit"><p class="form-btn form-btn-marT form-btn-enable btn3">登录</p></div>
       <p class="btn-under font1" >登录即表示同意<span class="small font1">《企智网服务协议》</span>  <span class="forget">忘记密码？</span></p>
@@ -52,9 +52,21 @@
       smsGeet (data) {
         let that = this;
         that.myTest = data;
+        that.myTest.type = 2;
         console.log('geetest', that.myTest);
+
       },
-      showMessFromChild () {}
+      showMessFromChild (mess) {
+          console.log('login mess', mess);
+          let that = this;
+          that.myMsg = {
+              type: 1,
+              text: mess
+          }
+          setTimeout(function () {
+              that.myMsg.type = 0;
+          }, 2000);
+      },
 
     }
   }

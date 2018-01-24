@@ -60,13 +60,14 @@ export default {
     },
     getGt: function () {
       var that = this;
-      axios.get('http://admin.saas.vjuzhen.com/open/initcaptcha?t=" + (new Date()).getTime()').then(function (res) {
+      axios.get('http://api.qizhi.vjuzhen.com/gaptchas').then(function (res) {
         // 使用initGeetest接口gt:"9966aae93f8e16fdd254b8adeffcddfa   challenge:107be150a425ee397d4f8716222f4242
-        // 参数1：配置参数
+        // 参数1：配置参数?t=' + (new Date()).getTime()
         // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-        console.log('后台清洁球', res);
+        //console.log('后台清洁球', res);
           if(res.data.success){
             var data = res.data;
+              console.log('first', data);
             initGeetest({
               // 省略配置参数
               gt: data.gt, //字符串类型。验证 id，极验后台申请得到
@@ -80,7 +81,7 @@ export default {
 //              next_width: '300px',
 //              bg_color: 'black'
             }, function (captchaObj) {
-              console.log('captchaObj', captchaObj);
+              //console.log('captchaObj', captchaObj);
               captchaObj.appendTo("#cap");//将验证按钮插入到宿主页面中，参数可以是 id 选择器，也可以是具体的元素
               //captchaObj.bindForm();//假如您的页面信息通过表单进行提交的，可以通过此接口将验证参数的结果绑定到一个表单上去
               //captchaObj.getValidate();//获取二次验证所需的凭证
@@ -88,50 +89,30 @@ export default {
               //captchaObj.verify();// 供product为bind类型的验证使用，进行验证
               captchaObj.onReady(function () {
                 //监听验证按钮的 DOM 生成完毕事件
-                //$("#wait").hide();
-                 //console.log(11111)
               });
               captchaObj.onSuccess(function () {
                 // 监听验证成功事件
+                  console.log('cap', captchaObj);
                 var result = captchaObj.getValidate();
-                var geetest = {
-                  geetest_challenge: result.geetest_challenge,
-                  geetest_validate: result.geetest_validate,
-                  geetest_seccode: result.geetest_seccode,
-                }
+                  console.log('res', result);
+                  if(result){
+                      var geetest = {
+                          geetest_challenge: result.geetest_challenge,
+                          geetest_validate: result.geetest_validate,
+                          geetest_seccode: result.geetest_seccode,
+                      }
+                      that.$emit('geetest', geetest);
+                      that.msgs.type = 0;
+                  }else{
+                      //
+                  }
 
-                console.log('成功', result);
-                //that.$store.state.loginStore.geetest = geetest;
-                that.$emit('geetest', geetest);
-                that.msgs.type = 0;
               });
               captchaObj.onError(function () {
                 //监听验证出错事件
               });
 //              captchaObj.onClose(function () {
 //                //监听product为bind时的关闭验证事件
-//              });
-
-//                var result = captchaObj.getValidate();
-//                if (!result) {
-//                  $("#notice1").show();
-//                  setTimeout(function () {
-//                    $("#notice1").hide();
-//                  }, 2000);
-//                  e.preventDefault();
-//                }
-
-              // 将验证码加到id为captcha的元素里，同时会有三个input的值用于表单提交
-//              captchaObj.appendTo("#captcha1");
-//              captchaObj.onReady(function () {
-//                $("#wait1").hide();
-//              });
-
-              //captchaObj.appendTo('#captcha-box');
-              // 省略其他方法的调用
-//              captchaObj.onError(function () {
-//                // 出错啦，可以提醒用户稍后进行重试
-//                // console.log('进入出错方法')
 //              });
             });
           }

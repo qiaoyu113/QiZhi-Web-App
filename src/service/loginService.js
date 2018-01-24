@@ -41,7 +41,7 @@ export const loginService = {
         return axios.put('/passwords/phone' + this.getParam(params));
     },
     getSmsCode: function (params) {
-        return axios.get('/users' + this.getParam(params));
+        return axios.get('/sms' + this.getParam(params));
     },
     validataSmsCode: function (params) {
         return axios.post('/users', this.getParam(params));
