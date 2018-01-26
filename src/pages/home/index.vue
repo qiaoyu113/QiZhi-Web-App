@@ -77,7 +77,7 @@
                <div class="swiper-wrapper">
                     <div class="swiper-slide">
                          <div class="recomTopics_img"><img src="../../assets/image/default.png" /></div>
-                         <p>在垄断下微头条做移动社交的机会在哪里？</p>
+                         <p>在垄断下微头条做在垄断下微头条做移动社交的机会在哪里？移动社交的机会在哪里？</p>
                     </div>
                     <div class="swiper-slide">
                          <div class="recomTopics_img"><img src="../../assets/image/default.png" /></div>
@@ -181,6 +181,7 @@
             this.hot('#navigation')
         },
         methods: {
+            
             hot:function(id){
                   var navSwiper = new Swiper(id, {
                         slidesPerView: 'auto',
@@ -349,7 +350,7 @@
                     height: auto;
                     padding-right: @size10;
                     width: 9.0667rem;
-                    margin-bottom: 30px;
+                    
                     .recomTopics_img{
                         width: 9.0667rem;
                         height: 4.5333rem;
@@ -361,7 +362,7 @@
                     p{
                         font-size: 16px;
                         color: #333333;
-                        line-height: 22px;
+                        line-height: @size22;
                         margin-top: @size4;
                         font-weight: bold;
                     }

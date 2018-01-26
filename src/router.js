@@ -37,6 +37,8 @@ const article = (resolve) => {require(['./pages/article/details.vue'],resolve)}
 //专题
 const specialList = (resolve) => {require(['./pages/special/list.vue'],resolve)}
 const special = (resolve) => {require(['./pages/special/details.vue'],resolve)}
+//活动
+const activity = (resolve) => {require(['./pages/activity/details.vue'],resolve)}
 // 404错误页面
 const error = (resolve) => {require(['./pages/error.vue'],resolve)}
 
@@ -56,6 +58,8 @@ const routers = [
     //专题
     {name: 'special',path:'/special',component: special},
     {name: 'specialList',path:'/special/list',component: specialList},
+    //活动
+    {name: 'activity',path:'/activity',component: activity},
     
 ]
 

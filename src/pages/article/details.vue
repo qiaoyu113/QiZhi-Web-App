@@ -73,10 +73,22 @@
             },
         },
         mounted: function() {
-
-        },
+            this.Vscroll();
+          },
         methods: {
-
+            Vscroll:function(){
+                  $(document).scroll(function(){
+                var stop = $("body").scrollTop();//滚动条距离顶部的距离
+                var stopp=stop / 37.5
+                   if(stopp >= 4.48){
+                      $('.head').css({'background':'#fff','box-shadow':'inset 0 -1px 0 0 rgba(221,221,221,0.50)'})
+                      $('.head i').css('color','#000')
+                   }else{
+                     $('.head').css({'background':'none','box-shadow':'inset 0 0px 0 0 rgba(221,221,221,0.50)'})
+                      $('.head i').css('color','#fff')
+                   }
+                  });
+            }
         }
     }
 </script>
@@ -92,6 +104,8 @@
     		z-index: 999;
     		height: 44px;
     		width: 100%;
+            box-shadow:inset 0 0px 0 0 rgba(221,221,221,0.50);
+            transition:1.4s;
     		.head_l{
     			float: left;
     			margin-left: .4rem;

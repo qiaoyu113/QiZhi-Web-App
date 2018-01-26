@@ -57,6 +57,56 @@
         			</div>
         		</div>
         	</div>
+          <div class="ros clearfix">
+            <div class="ros_l"><img src="../../assets/image/default.png" /></div>
+            <div class="ros_r">
+              <p class="wenzi">两行大概能放多少个字呢来我们数一下苹果六放二十六个字省道撒打算</p>
+              <div class="ros_lable clearfix">
+                        <div class="ros_lable_l"><p>汽车·1小时前</p></div>
+                <div class="ros_lable_r"><p><i class="iconfont icon-yanjing"></i>20K</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="ros clearfix">
+            <div class="ros_l"><img src="../../assets/image/default.png" /></div>
+            <div class="ros_r">
+              <p class="wenzi">两行大概能放多少个字呢来我们数一下苹果六放二十六个字省道撒打算</p>
+              <div class="ros_lable clearfix">
+                        <div class="ros_lable_l"><p>汽车·1小时前</p></div>
+                <div class="ros_lable_r"><p><i class="iconfont icon-yanjing"></i>20K</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="ros clearfix">
+            <div class="ros_l"><img src="../../assets/image/default.png" /></div>
+            <div class="ros_r">
+              <p class="wenzi">两行大概能放多少个字呢来我们数一下苹果六放二十六个字省道撒打算</p>
+              <div class="ros_lable clearfix">
+                        <div class="ros_lable_l"><p>汽车·1小时前</p></div>
+                <div class="ros_lable_r"><p><i class="iconfont icon-yanjing"></i>20K</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="ros clearfix">
+            <div class="ros_l"><img src="../../assets/image/default.png" /></div>
+            <div class="ros_r">
+              <p class="wenzi">两行大概能放多少个字呢来我们数一下苹果六放二十六个字省道撒打算</p>
+              <div class="ros_lable clearfix">
+                        <div class="ros_lable_l"><p>汽车·1小时前</p></div>
+                <div class="ros_lable_r"><p><i class="iconfont icon-yanjing"></i>20K</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="ros clearfix">
+            <div class="ros_l"><img src="../../assets/image/default.png" /></div>
+            <div class="ros_r">
+              <p class="wenzi">两行大概能放多少个字呢来我们数一下苹果六放二十六个字省道撒打算</p>
+              <div class="ros_lable clearfix">
+                        <div class="ros_lable_l"><p>汽车·1小时前</p></div>
+                <div class="ros_lable_r"><p><i class="iconfont icon-yanjing"></i>20K</p></div>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -96,9 +146,23 @@
             },
         },
         mounted: function() {
+           this.Vscroll();
         },
         methods: {
-
+               Vscroll:function(){
+                  $(document).scroll(function(){
+                var stop = $("body").scrollTop();//滚动条距离顶部的距离
+                var stopp=stop / 37.5
+                   if(stopp >= 4.48){
+                      $('.head').css({'background':'#fff','box-shadow':'inset 0 -1px 0 0 rgba(221,221,221,0.50)'})
+                      $('.head i').css('color','#000')
+                   }else{
+                     $('.head').css({'background':'none','box-shadow':'inset 0 0px 0 0 rgba(221,221,221,0.50)'})
+                      $('.head i').css('color','#fff')
+                   }
+  
+                          });
+            }
         }
     }
 </script>
@@ -114,6 +178,8 @@
           	z-index: 999;
           	height: 44px;
           	width: 100%;
+            box-shadow:inset 0 0px 0 0 rgba(221,221,221,0.50);
+            transition:1.4s;
           	.head_l{
           		float: left;
           		margin-left: @size15;

@@ -41,7 +41,7 @@
         margin: 0 auto;
         width: 100%;
         word-wrap: break-word;
-        overflow: scroll;
+        // overflow: scroll;
         height: 100%;
         max-width: 450px;
         position:relative;
