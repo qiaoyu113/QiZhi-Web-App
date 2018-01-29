@@ -11,36 +11,43 @@
          </div>
          <div class="backimg">
                <img src="../../assets/image/default.png" />     
-               <div class="biaoqian">进行中</div>        
+               <div class="biaoqian" v-if="list.activityStatus==0">未开始</div>  
+               <div class="biaoqian" v-if="list.activityStatus==1">进行中</div>  
+               <div class="biaoqian" v-if="list.activityStatus==2">已结束</div>  
          </div>
          <div class="details">
-           <h2>活动名称活动名称显示全2017运营人年终聚会</h2>
-           <p class="browse"><span>7123次浏览</span><span>346人报名</span></p>
+           <p class="h2">{{list.activityTitle}}</p>
+           <p class="browse"><span>{{list.actReadNum}}次浏览</span><span>{{list.actApplyNum}}人报名</span></p>
             <div class="ros">
-                <p><i class="iconfont icon-wait"></i>12-12 09:00 至 12-12 18:00</p>
+                <p><i class="iconfont icon-wait"></i>{{actStartTime}} 至 {{actEndTime}}</p>
             </div>
             <div class="ros">
-                <p><i class="iconfont icon-icon_ditu"></i>北京市朝阳区东大桥soho尚都601<i class="iconfont icon-fanhui right"></i></p>
+                <p><i class="iconfont icon-chanpin-didian"></i>
+                  <i>{{list.prov}}{{list.city}}{{list.dist}}{{list.activityAddress}}</i>
+                  <i class="iconfont icon-fanhui right"></i></p>
             </div>
              <div class="ros">
-                <p><i class="iconfont icon-piaojia"></i><span>¥169 - 1888</span><span>¥169</span><span>免费</span></p>
+                <p><i class="iconfont icon-piaojia"></i>
+                   <span v-if="list.actCostType== 1&&list.tickets.length != 1">
+                   ¥{{list.minTicketPrice / 100}} - {{list.maxTicketPrice / 100}}</span>
+                   <span v-if="list.tickets.length == 1&&list.actCostType==1" v-for="(lists,index) in list.tickets">¥{{lists.price / 100}}</span>
+                   <span v-if="list.actCostType==0">免费</span></p>
             </div>
-             <div class="ros clearfix">
-                <div class="ros_l"><i class="iconfont icon-wode"></i>88人已报名 限200人</div>
+             <div v-if="list.actApplyStauts == 1" class="ros clearfix">
+                <div class="ros_l"><i class="iconfont icon-wode"></i>{{list.actApplyNum}}人已报名 限{{list.peoUpperLimit}}人</div>
                 <div class="ros_r cleafix">
                                     <i class="iconfont icon-fanhui"></i>
                                     <div><img src="../../assets/image/default.png" /></div>
                                     <div><img src="../../assets/image/default.png" /></div>
                                     <div><img src="../../assets/image/default.png" /></div>
                                     <div><img src="../../assets/image/default.png" /></div>
-                                    
                                     </div>
             </div>
             <div class="publisher clearfix">
-                 <div class="publisher_l"><img src="../../assets/image/default.png" /></div>
+                 <div class="publisher_l"><img :src="https + list.pubUserHeadimg" v-if="list.pubUserHeadimg!=null"/></div>
                  <div class="publisher_con">
-                     <h3>北大创新评论</h3>
-                     <p>北京大学工学院工程技术研究院成立于2011年,是工学院的重要机北京大学工学院工程技术研究院成立于2011年</p>
+                     <p class="h3">{{list.publishUser}}</p>
+                     <p class="p">北京大学工学院工程技术研究院成立于2011年,是工学院的重要机北京大学工学院工程技术研究院成立于2011年</p>
                  </div>
                  <div class="publisher_r">
                      <i class="iconfont icon-jiahao"></i>
@@ -49,8 +56,10 @@
             </div>
          </div>
          <div class="lecturer">
-             <div class="lecturer_top"><p>讲师</p></div>
-             <p class="text">12月3日，在国家宪法日即将到来之际，法律互联网服务机构无讼举办了一年一度的“无讼有声”大会。在这场主题为“AI时代的企业法律服务”的大会上，无讼发布了基于人工智能的全新企业法律服务产品“无讼法务”，正式进军企业服务赛道。</p>
+             <div class="lecturer_top" ><p>活动详情</p></div>
+             <div id="text">
+            <!--  12月3日，在国家宪法日即将到来之际，法律互联网服务机构无讼举办了一年一度的“无讼有声”大会。在这场主题为“AI时代的企业法律服务”的大会上，无讼发布了基于人工智能的全新企业法律服务产品“无讼法务”，正式进军企业服务赛道。 -->
+             </div>
 
          </div>
       
@@ -61,9 +70,16 @@
 
 <script>
     import {appService} from '../../service/appService'
+    import {details} from '../../service/details.js'
+    import publics from '../../mixin/publics.js'
+
     export default {
         data () {
             return {
+                list:'',
+                https:'',
+                actStartTime:'',
+                actEndTime:'',
             }
         },
         computed:{
@@ -88,9 +104,22 @@
             },
         },
         mounted: function() {
-
+                this.getActivity()
         },
         methods: {
+            getActivity:function(){
+              let that=this;
+              details.getActivity("59116a036f7d13437d476100").then(function(res){
+                    // that.content=res.data.datas.datas
+                    that.https=that.$store.state.picHead
+                    console.log(res.data)
+                that.list=res.data.datas
+                document.getElementById('text').innerHTML = that.list.activityDetails
+                // console.log(that.list)
+                that.actStartTime = publics.stamp2(Number(that.list.actStartTime))
+                that.actEndTime = publics.stamp2(Number(that.list.actEndTime))
+              })
+            },
 
         }
     }
@@ -153,7 +182,8 @@
         }
         .details{
             padding: 0 @size15;
-            h2{
+            .h2{
+                font-weight: 700;
                 margin-top: @size15;
                 font-size: 22px;
                 color: #333;
@@ -227,17 +257,18 @@
                     .publisher_con{
                         float: left;
                         margin-left: @size10;
-                        h3{
-                            line-height: 22px;
+                        .h3{
+                            font-weight: 700;
+                            line-height: @size22;
                             font-size: 16px;
                             color: #333;
                         }
-                        p{
+                        .p{
                             font-size: 12px;
-                            line-height: @size16;
+                            line-height: @size18;
                             margin-top: @size4;
                             width: 4.98rem;
-                            height: 0.8533rem;
+                            height: @size36;
                             overflow : hidden;
                             text-overflow: ellipsis;
                             display: -webkit-box;
@@ -264,18 +295,16 @@
             border-top:10px solid #f9f9f9;
             .lecturer_top{
                 margin: @size12;
-                background: url("../../assets/image/copy3.png") no-repeat;
+                background: url("../../assets/image/copy2.png") no-repeat;
                 p{
                   font-size: 16px;
                   line-height: 22px;  
                   margin-left: 4px;
                 }
             }
-            .text{
+            #text{
                 padding: 0 @size15;
-                line-height: 32px;
-                font-size: 18px;
-                color: #333;
+              
             }
         }
     }

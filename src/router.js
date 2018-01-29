@@ -39,6 +39,11 @@ const specialList = (resolve) => {require(['./pages/special/list.vue'],resolve)}
 const special = (resolve) => {require(['./pages/special/details.vue'],resolve)}
 //活动
 const activity = (resolve) => {require(['./pages/activity/details.vue'],resolve)}
+//专栏
+const specialColumn = (resolve) => {require(['./pages/specialColumn/details.vue'],resolve)}
+const specialContent = (resolve) => {require(['./pages/specialColumn/content.vue'],resolve)}
+// 直播详情
+const broadcast = (resolve) => {require(['./pages/broadcast/details.vue'],resolve)}
 // 404错误页面
 const error = (resolve) => {require(['./pages/error.vue'],resolve)}
 
@@ -60,6 +65,11 @@ const routers = [
     {name: 'specialList',path:'/special/list',component: specialList},
     //活动
     {name: 'activity',path:'/activity',component: activity},
+    //专栏
+    {name: 'specialColumn',path:'/specialColumn',component: specialColumn},
+    {name: 'specialContent',path:'/specialColumn/content',component: specialContent},
+    // 直播详情
+    {name: 'broadcast',path:'/broadcast',component: broadcast},
     
 ]
 

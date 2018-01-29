@@ -1,5 +1,5 @@
 <template>
-    <div class="details">
+    <div class="content">
         <div class="head clearfix">
         	<div class="head_l"><i class="iconfont icon-fanhui"></i></div>
         	<div class="head_r"><i class="iconfont icon-fenxiang"></i></div>
@@ -9,27 +9,19 @@
         	<img :src='https + list.poster' v-if="list.poster!=null"/>
         </div>
         <div class="con">
-        	 <div class="label">
-        	 	 <ul class="clearfix" v-for="(lists,index) in list.tag">
-        	 	 	<li>{{lists}}</li>
-        	 	 </ul>
-        	 </div>
-        	 <div class="h1"><p>{{list.title}}</p></div>
+        
+        	 <div class="h1"><p>{{list.name}}</p></div>
              <div class="author clearfix">
              	<div class="author_l">
-                   <img :src='https + list.authorHeadImg' v-if="list.authorHeadImg!=null"/>
-                </div>
+             	  <img :src='https + list.authorHeadImg' v-if="list.authorHeadImg!=null"/></div>
              	<div class="author_con">
-             		 <p>{{list.originAuthor}}</p>
-             		 <span>{{datas}}</span>
+             		 <p>{{list.authorName}}</p>
+             		 <span>{{createTime}}</span>
              	</div>
-             	<div class="author_r"><i class="iconfont icon-jiahao"></i>关注</div>
+             	
              </div>
-             <div class="explain clearfix">
-             	  <div class="explain_l"><img src="../../assets/image/yinhao.png"></div>
-             	  <div class="explain_r"><p>{{list.summary}}</p></div>
-             </div>
-             <div class="box" id="container">
+         
+             <div class="box" id="content">
                 <!--  <p>12月3日，在国家宪法日即将到来之际，<i>法律互联网服务机构</i>无讼举办了一年一度的“无讼有声”大会。在这场主题为“AI时代的企业法律服务”的大会上，无讼发布了基于人工智能的全新企业法律服务产品“无讼法务”，正式进军企业服务赛道</p>
                  <img src="../../assets/image/default.png" />
                  <p>不同于传统的法律电商逻辑，无讼法务并未从帮助企业对接外部律师切入，而是以云端法务部的模式，用人工智能填补中小企业的法务职能空缺。</p>
@@ -54,7 +46,7 @@
             return {
                 list:'',
                 https:'',
-                datas:'',
+                createTime:'',
             }
         },
         computed:{
@@ -81,23 +73,20 @@
         },
         mounted: function() {
             this.Vscroll();
-            this.getList();
+            this.getContent();
           },
         methods: {
-            getList:function(){
-              let id = "5a1244fafde98844bf1ed7f1"
+            getContent:function(){
+              let id = "5a1e4dbafde98844bf1ed80a"
               let that=this;
-              details.getArticle("5a1244fafde98844bf1ed7f1").then(function(res){
+              details.getContent("5a1e4dbafde98844bf1ed80a",{type:1}).then(function(res){
                     // that.content=res.data.datas.datas
-                    that.https=that.$store.state.picHead
-                 that.list=res.data
-                document.getElementById('container').innerHTML = that.list.content
+                that.list=res.data.datas.data
+                that.https=that.$store.state.picHead
+                document.getElementById('content').innerHTML = that.list.content
                 console.log(that.list)
-                if(that.list.createDate != null){
-                 that.datas = publics.stamp(Number(that.list.createDate))
-                }
-          
-                console.log(that.datas )
+                that.createTime = publics.stamp(Number(that.list.createTime))
+                
               })
             },
             Vscroll:function(){
@@ -118,8 +107,8 @@
 </script>
 <style lang="less" >
     /*rem等基本设置都放在base中，不写多个*/
-    // @import url('../../assets/css/base.less');
-    .details{
+    @import url('../../assets/css/base.less');
+    .content{
     	width: 100%;
     	.head{
     		position: fixed;
@@ -159,31 +148,17 @@
     	}
     	.con{
     		padding:.4rem .4rem 2.6133rem;
-    		.label{
-    			width: 100%;
-    			li{
-    				float: left;
-    				display: block;
-    				width: 1.92rem;
-    				height: .7467rem;
-    				background: #eee;
-    				font-size: 13px;
-                    color: #333333;
-    				border-radius: .3733rem;
-    				text-align: center;
-    				line-height: .7467rem;
-    			}
-    		}
     		.h1{
     			width: 100%;
     			p{
     				font-size: 22px;
                     color: #333333;
-                    margin: .4rem 0;
+                    line-height: 30px;
     			}
     		}
     		.author{
     			width: 100%;
+    			margin-top: @size15;
     			.author_l{
     				float: left;
     				width: .96rem;
@@ -209,45 +184,9 @@
                         line-height: 18px;
     				}
     			}
-    			.author_r{
-    				float: right;
-    				width: 1.6rem;
-    				height: .6933rem;
-    				background: #FFFFFF;
-                    border: 1px solid #333333;
-                    border-radius: .32rem;
-                    text-align: center;
-                    line-height: .6933rem;
-                    font-size: 13px;
-                    color: #333333;
-                    margin-top: .1067rem;
-    			}
+    	
     		}
-    		.explain{
-    			 padding: .4rem .4rem .2667rem .4rem;
-    			 background: #eee;
-    			 margin-top: .4rem;
-    			 .explain_l{
-    			 	float: left;
-    			 	margin-right: .2667rem;
-    			 	width: .5867rem;
-    			 	height: .48rem;
-    			 	margin-top: 6px;
-    			 	img{
-    			 		width: 100%;
-    			 		height: 100%;
-    			 	}
-    			 }
-    			 .explain_r{
-    			 	float: left;
-    			 	width: 7.5rem;
-    			 	p{
-    			 		font-size: 14px;
-                        color: #666666;
-                        line-height: 26px;
-    			 	}
-    			 }
-    		}
+
     		.box{
     			width: 100%;
     			padding-top: .5333rem;
