@@ -76,14 +76,14 @@
     export default {
         data () {
             return {
-               /* list:'',
+                /*list:'',
                 https:'',
                 actStartTime:'',
                 actEndTime:'',*/
             }
         },
-        syncData({store,router}) {
-            let id = router.params.id
+        asyncData({store,route}) {
+            let id = route.params.id
             return Promise.all([
                 details.getActivity(id).then(res=>{
                     store.state.homeStore.list=res.data.datas;
@@ -92,7 +92,10 @@
         },
         computed: {
             https() {
-                return this.$store.state.picHead || []
+                return this.$store.state.picHead
+            },
+            list() {
+                return this.$store.state.homeStore.list
             },
             /*简单的格式转换如日期格式放到filter中去做
             actStartTime() {
@@ -103,6 +106,7 @@
             },*/
         },
         mounted: function() {
+            console.log(this.list);
 //            不需要token的请求放在sync中，用store和computed转存
 //                this.getActivity()
         },
@@ -115,9 +119,9 @@
       
                  that.https=that.$store.state.picHead
                 that.list=res.data.datas
-                用v-html减少dom操作
+//                用v-html减少dom操作
                 document.getElementById('text').innerHTML = that.list.activityDetails
-                用filter简化代码，让代码更清晰
+//                用filter简化代码，让代码更清晰
                 that.actStartTime = publics.stamp2(Number(that.list.actStartTime))
                 that.actEndTime = publics.stamp2(Number(that.list.actEndTime))
               })

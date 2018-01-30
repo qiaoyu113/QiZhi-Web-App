@@ -60,7 +60,7 @@ Vue.filter('readNumFormate',function(value) {
     return result
 })
 Vue.filter('stampFormate',function(id) {
-    var date = new Date(id);
+    var date = new Date(id*1);
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = date.getDate() + ' ';
@@ -70,7 +70,7 @@ Vue.filter('stampFormate',function(id) {
     return Y+M+D;
 })
 Vue.filter('stampFormate2',function(id) {
-    var date = new Date(id);
+    var date = new Date(id*1);
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
     var D = date.getDate() + ' ';

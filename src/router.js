@@ -8,6 +8,7 @@ import Vue from 'vue'
 import store from './vuex'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
+import './mixin/filter';
 
 // 定义全局组件
 import zmodal from './component/common/modal.vue'
