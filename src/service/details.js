@@ -13,6 +13,9 @@ export const details = {
     getActivity: function(params) { // 获得活动详情
        return axios.get('/activities/'+params);
     },
+    getLiveListpeople: function(params) { // 获得活动报名列表
+        return axios.get('/activities/people' + this.getParam(params))
+    },
     getColumn: function(params) { // 获得专栏详情
        return axios.get('/columns/'+params);
     },
@@ -22,6 +25,7 @@ export const details = {
     getBroadcast: function(params) { // 获得直播详情
        return axios.get('/lives/'+params);
     },
+
 
     getLiveList: function(params) { // 获得直播列表
         return axios.get('/lives' + this.getParam(params))

@@ -21,7 +21,7 @@
                 </div>
              	<div class="author_con">
              		 <p>{{list.originAuthor}}</p>
-             		 <span>{{datas}}</span>
+             		 <span>{{list.createDate | stampFormate}}</span>
              	</div>
              	<div class="author_r"><i class="iconfont icon-jiahao"></i>关注</div>
              </div>
@@ -29,7 +29,7 @@
              	  <div class="explain_l"><img src="../../assets/image/yinhao.png"></div>
              	  <div class="explain_r"><p>{{list.summary}}</p></div>
              </div>
-             <div class="box" id="container">
+             <div class="box" id="container" v-html="list.content">
                 <!--  <p>12月3日，在国家宪法日即将到来之际，<i>法律互联网服务机构</i>无讼举办了一年一度的“无讼有声”大会。在这场主题为“AI时代的企业法律服务”的大会上，无讼发布了基于人工智能的全新企业法律服务产品“无讼法务”，正式进军企业服务赛道</p>
                  <img src="../../assets/image/default.png" />
                  <p>不同于传统的法律电商逻辑，无讼法务并未从帮助企业对接外部律师切入，而是以云端法务部的模式，用人工智能填补中小企业的法务职能空缺。</p>
@@ -52,48 +52,45 @@
     export default {
         data () {
             return {
-                list:'',
-                https:'',
-                datas:'',
+                // list:'',
+                // https:'',
+                // datas:'',
             }
         },
         asyncData({store,route}) {
-            const that = this;
+            let id = route.params.id
             return Promise.all([
-                appervice.getParam().then(res=>{
-//                    store.state.homeStore.listImg = res.data;
-                }),
-                service.getParam().then(res=>{
-//                    store.state.homeStore.noticelist = res.data.datas;
+                details.getArticle(id).then(res=>{
+                    store.state.homeStore.list=res.data;
                 }),
             ])
         },
         computed: {
-            listImg() {
-                return this.$store.state.homeStore.listImg || []
+            https() {
+                return this.$store.state.picHead
             },
-            noticelist() {
-                return this.$store.state.homeStore.noticelist || []
+            list() {
+                return this.$store.state.homeStore.list
             },
         },
         mounted: function() {
             this.Vscroll();
-            this.getList();
+            // this.getList();
           },
         methods: {
-            getList:function(){
-              // 5a1244fafde98844bf1ed7f1
-              let that=this;
-              let id = that.$route.params.id 
-              details.getArticle(id).then(function(res){
-                 that.https=that.$store.state.picHead
-                 that.list=res.data
-                document.getElementById('container').innerHTML = that.list.content
-                if(that.list.createDate != null){
-                 that.datas = publics.stamp(Number(that.list.createDate))
-                }
-              })
-            },
+            // getList:function(){
+            //   // 5a1244fafde98844bf1ed7f1
+            //   let that=this;
+            //   let id = that.$route.params.id 
+            //   details.getArticle(id).then(function(res){
+            //      that.https=that.$store.state.picHead
+            //      that.list=res.data
+            //     document.getElementById('container').innerHTML = that.list.content
+            //     if(that.list.createDate != null){
+            //      that.datas = publics.stamp(Number(that.list.createDate))
+            //     }
+            //   })
+            // },
             Vscroll:function(){
                   $(document).scroll(function(){
                 var stop = $("body").scrollTop();//滚动条距离顶部的距离

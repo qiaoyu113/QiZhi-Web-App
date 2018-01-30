@@ -10,7 +10,7 @@
              </div>
          </div>
          <div class="backimg">
-               <img :src="https"/>    
+               <img :src="https + lists.poster"/>    
          </div>
          <div class="option clearfix">
          	<div :class="{'selected':indexs==1}" @click="show(1)">详情</div>
@@ -29,7 +29,7 @@
            <div class="label">
            	   专栏介绍
            </div>
-           <div class="conter" id="special">
+           <div class="conter" id="special" v-html="lists.desc">
        <!--     	12月3日，在国家宪法日即将到来之际，法律互联网服务机构无讼举办了一年一度的“无讼有声”大会。在这场主题为“AI时代的企业法律服务”的大会上，无讼发布了基于人工智能的全新企业法律服务产品“无讼法务”，正式进军企业服务赛道 -->
            </div>
            	
@@ -94,49 +94,46 @@
         data () {
             return {
             	indexs:1,
-            	lists:'',
-            	https:'',
+            	// lists:'',
+            	// https:'',
             }
         },
-        computed: {
-            listImg() {
-                return this.$store.state.homeStore.listImg || []
-            },
-            noticelist() {
-                return this.$store.state.homeStore.noticelist || []
-            },
-        },
         asyncData({store,route}) {
-            const that = this;
+            let id = route.params.id
             return Promise.all([
-                appervice.getParam().then(res=>{
-//                    store.state.homeStore.listImg = res.data;
-                }),
-                service.getParam().then(res=>{
-//                    store.state.homeStore.noticelist = res.data.datas;
+                details.getColumn(id).then(res=>{
+                    store.state.homeStore.lists=res.data.datas;
                 }),
             ])
         },
+        computed: {
+            https() {
+                return this.$store.state.picHead
+            },
+            lists() {
+                return this.$store.state.homeStore.lists
+            },
+        },
         mounted: function() {
-                this.getColumn()
+                // this.getColumn()
         },
         methods: {
         	show:function(index){
                  this.indexs=index
         	},
-            getColumn:function(){
-              // let id = "5a0021b8ebc3c55fccae786e"
-              let that=this;
-              let id = that.$route.params.id 
-              details.getColumn(id).then(function(res){
+            // getColumn:function(){
+            //   // let id = "5a0021b8ebc3c55fccae786e"
+            //   let that=this;
+            //   let id = that.$route.params.id 
+            //   details.getColumn(id).then(function(res){
                      
-                that.lists=res.data.datas 
-                 console.log(that.lists)
-                that.https=that.$store.state.picHead+that.lists.poster
-                document.getElementById('special').innerHTML = that.lists.desc
+            //     that.lists=res.data.datas 
+            //      console.log(that.lists)
+            //     that.https=that.$store.state.picHead+that.lists.poster
+            //     document.getElementById('special').innerHTML = that.lists.desc
           
-              })
-            },
+            //   })
+            // },
 
         }
     }

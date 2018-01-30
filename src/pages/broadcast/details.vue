@@ -19,8 +19,8 @@
          </div> -->
          <div class="box_1" :class="{'display':indexs==1}">
                <p class="h3">{{listse.title}}</p>
-               <p class="lable">{{startTime}} 开始 | {{listse.applyNum}}人报名</p>
-               <div id="broadcasts">
+               <p class="lable">{{listse.startTime | stampFormate}} 开始 | {{listse.applyNum}}人报名</p>
+               <div id="broadcasts" v-html="listse.description">
                    
                </div>
          	
@@ -43,49 +43,46 @@
         data () {
             return {
             	indexs:1,
-            	listse:'',
-            	https:'',
-                startTime:'',
+            	// listse:'',
+            	// https:'',
+                // startTime:'',
             }
         },
-        asyncData({store,route}) {
-            const that = this;
+       asyncData({store,route}) {
+            let id = route.params.id
             return Promise.all([
-                appervice.getParam().then(res=>{
-//                    store.state.homeStore.listImg = res.data;
-                }),
-                service.getParam().then(res=>{
-//                    store.state.homeStore.noticelist = res.data.datas;
+                details.getBroadcast(id).then(res=>{
+                    store.state.homeStore.listse=res.data.datas;
                 }),
             ])
         },
         computed: {
-            listImg() {
-                return this.$store.state.homeStore.listImg || []
+            https() {
+                return this.$store.state.picHead
             },
-            noticelist() {
-                return this.$store.state.homeStore.noticelist || []
+            listse() {
+                return this.$store.state.homeStore.listse
             },
         },
         mounted: function() {
-                this.getColumn()
+                // this.getColumn()
         },
         methods: {
         	show:function(index){
                  this.indexs=index
         	},
-            getColumn:function(){
-              // let id = "572635"
-              let that=this;
-              let id = that.$route.params.id 
-              details.getBroadcast(id).then(function(res){              
-                that.listse=res.data.datas
-                that.https=that.$store.state.picHead
-                document.getElementById('broadcasts').innerHTML = that.listse.description
+            // getColumn:function(){
+            //   // let id = "572635"
+            //   let that=this;
+            //   let id = that.$route.params.id 
+            //   details.getBroadcast(id).then(function(res){              
+            //     that.listse=res.data.datas
+            //     that.https=that.$store.state.picHead
+            //     document.getElementById('broadcasts').innerHTML = that.listse.description
       
-                that.startTime = publics.stamp2(Number(that.listse.startTime))
-              })
-            },
+            //     that.startTime = publics.stamp2(Number(that.listse.startTime))
+            //   })
+            // },
 
         }
     }

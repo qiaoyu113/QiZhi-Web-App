@@ -10,7 +10,7 @@
              </div>
          </div> -->
          <div class="backimg">
-               <img src="../../assets/image/default.png" />     
+               <img :src="https + list.activityPoster" />     
                <div class="biaoqian" v-if="list.activityStatus==0">未开始</div>  
                <div class="biaoqian" v-if="list.activityStatus==1">进行中</div>  
                <div class="biaoqian" v-if="list.activityStatus==2">已结束</div>  
@@ -37,10 +37,10 @@
                 <div class="ros_l"><i class="iconfont icon-wode"></i>{{list.actApplyNum}}人已报名 限{{list.peoUpperLimit}}人</div>
                 <div class="ros_r cleafix">
                                     <i class="iconfont icon-fanhui"></i>
-                                    <div><img src="../../assets/image/default.png" /></div>
-                                    <div><img src="../../assets/image/default.png" /></div>
-                                    <div><img src="../../assets/image/default.png" /></div>
-                                    <div><img src="../../assets/image/default.png" /></div>
+                                    <div class="ros_r_r clearfix" v-for="listy in lists">
+                                        <div><img :src="https + listy.headImg" /></div>
+                                    </div>
+                                    
                                     </div>
             </div>
             <div class="publisher clearfix">
@@ -58,7 +58,7 @@
          <div class="lecturer">
              <div class="lecturer_top" ><p>活动详情</p></div>
              <div id="text" v-html="list.activityDetails">
-            <!--  12月3日，在国家宪法日即将到来之际，法律互联网服务机构无讼举办了一年一度的“无讼有声”大会。在这场主题为“AI时代的企业法律服务”的大会上，无讼发布了基于人工智能的全新企业法律服务产品“无讼法务”，正式进军企业服务赛道。 -->
+           
              </div>
 
          </div>
@@ -80,6 +80,7 @@
                 https:'',
                 actStartTime:'',
                 actEndTime:'',*/
+                lists:'',
             }
         },
         asyncData({store,route}) {
@@ -88,6 +89,9 @@
                 details.getActivity(id).then(res=>{
                     store.state.homeStore.list=res.data.datas;
                 }),
+                // details.getLiveListpeople({id:'59116a036f7d13437d476100',pageNo:1,pageSize:3}).then(res=>{
+                //     store.state.homeStore.lists=res
+                // }),
             ])
         },
         computed: {
@@ -97,6 +101,9 @@
             list() {
                 return this.$store.state.homeStore.list
             },
+            // lists(){
+            //     return store.state.homeStore.lists
+            // }
             /*简单的格式转换如日期格式放到filter中去做
             actStartTime() {
                 return publics.stamp2(Number(that.list.actStartTime))
@@ -106,26 +113,29 @@
             },*/
         },
         mounted: function() {
-            console.log(this.list);
+            // console.log(this.list);
 //            不需要token的请求放在sync中，用store和computed转存
-//                this.getActivity()
+               this.getActivity()
         },
         methods: {
-            /*getActivity:function(){
+            getActivity:function(){
                 // "59116a036f7d13437d476100"
               let that=this;
               let id = that.$route.params.id 
-              details.getActivity(id).then(function(res){
-      
-                 that.https=that.$store.state.picHead
-                that.list=res.data.datas
-//                用v-html减少dom操作
-                document.getElementById('text').innerHTML = that.list.activityDetails
-//                用filter简化代码，让代码更清晰
-                that.actStartTime = publics.stamp2(Number(that.list.actStartTime))
-                that.actEndTime = publics.stamp2(Number(that.list.actEndTime))
+              if(that.list.actApplyStauts == null){
+                 details.getLiveListpeople({id:id,pageNo:1,pageSize:3}).then(function(res){
+                  that.lists=res.data.datas.datas   
+//                  that.https=that.$store.state.picHead
+//                 that.list=res.data.datas
+// //                用v-html减少dom操作
+//                 document.getElementById('text').innerHTML = that.list.activityDetails
+// //                用filter简化代码，让代码更清晰
+//                 that.actStartTime = publics.stamp2(Number(that.list.actStartTime))
+//                 that.actEndTime = publics.stamp2(Number(that.list.actEndTime))
               })
-            },*/
+              }
+              
+            },
 
         }
     }
@@ -226,8 +236,10 @@
                     .ros_r{
                         float: right;
                         position: relative;
+                        .ros_r_r{
+                       float: right;
                         div{
-                            float: right;
+                            float: left;
                             width: @size24;
                             height: @size24;
                             border-radius: 50%;
@@ -240,6 +252,8 @@
                                 height: 100%;
                             }
                         }
+                        }
+                       
                         i{
                             float: right;
                             transform:rotate(180deg);
