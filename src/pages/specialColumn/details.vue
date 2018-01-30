@@ -98,9 +98,15 @@
             	https:'',
             }
         },
-        computed:{
+        computed: {
+            listImg() {
+                return this.$store.state.homeStore.listImg || []
+            },
+            noticelist() {
+                return this.$store.state.homeStore.noticelist || []
+            },
         },
-        syncData({store}) {
+        asyncData({store,route}) {
             const that = this;
             return Promise.all([
                 appervice.getParam().then(res=>{
@@ -110,14 +116,6 @@
 //                    store.state.homeStore.noticelist = res.data.datas;
                 }),
             ])
-        },
-        computed: {
-            listImg() {
-                return this.$store.state.homeStore.listImg || []
-            },
-            noticelist() {
-                return this.$store.state.homeStore.noticelist || []
-            },
         },
         mounted: function() {
                 this.getColumn()

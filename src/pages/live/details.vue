@@ -15,16 +15,13 @@
 
       }
     },
-    computed:{
-
-    },
-    syncData({store}) {
-      /*基本规则
-       * 所有不需要token的请求都放在这里
-       * 这里不出现window，document等DOM元素
-       * 这里获得的数据都要存储在store中
-       * 写法如下
-       * */
+      asyncData({store,route}) {
+        /*基本规则
+           * 所有不需要token的请求都放在这里
+           * 这里不出现window，document等DOM元素
+           * 这里获得的数据都要存储在store中
+           * 写法如下
+           * */
       const that = this;
       /*
        * 将所有的请求处理以数组放在promise中

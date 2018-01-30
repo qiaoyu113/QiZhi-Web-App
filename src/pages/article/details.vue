@@ -57,10 +57,7 @@
                 datas:'',
             }
         },
-        computed:{
-
-        },
-        syncData({store}) {
+        asyncData({store,route}) {
             const that = this;
             return Promise.all([
                 appervice.getParam().then(res=>{

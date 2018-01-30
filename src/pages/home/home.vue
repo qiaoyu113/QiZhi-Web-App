@@ -15,10 +15,7 @@
 
             }
         },
-        computed:{
-
-        },
-        syncData({store}) {
+        asyncData({store,route}) {
             /*基本规则
             * 所有不需要token的请求都放在这里
             * 这里不出现window，document等DOM元素
