@@ -1,13 +1,13 @@
 <template>
     <div class="content">
-        <div class="head clearfix">
+<!--         <div class="head clearfix">
         	<div class="head_l"><i class="iconfont icon-fanhui"></i></div>
         	<div class="head_r"><i class="iconfont icon-fenxiang"></i></div>
 
-        </div>
-        <div class="back">
+        </div> -->
+   <!--      <div class="back">
         	<img :src='https + list.poster' v-if="list.poster!=null"/>
-        </div>
+        </div> -->
         <div class="con">
         
         	 <div class="h1"><p>{{list.name}}</p></div>

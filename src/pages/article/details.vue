@@ -1,10 +1,10 @@
 <template>
     <div class="details">
-        <div class="head clearfix">
+  <!--       <div class="head clearfix">
         	<div class="head_l"><i class="iconfont icon-fanhui"></i></div>
         	<div class="head_r"><i class="iconfont icon-fenxiang"></i></div>
 
-        </div>
+        </div> -->
         <div class="back">
         	<img :src='https + list.poster' v-if="list.poster!=null"/>
         </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="activity">
-         <div class="head clearfix">
+      <!--    <div class="head clearfix">
              <div class="head_l">
              	<div><i class="iconfont icon-fanhui"></i></div>
              </div>
@@ -8,7 +8,7 @@
                 <div><i class="iconfont icon-ganxingqu"></i></div>
              	<div><i class="iconfont icon-fenxiang"></i></div>
              </div>
-         </div>
+         </div> -->
          <div class="backimg">
                <img src="../../assets/image/default.png" />     
                <div class="biaoqian" v-if="list.activityStatus==0">未开始</div>  
@@ -112,7 +112,7 @@
               let that=this;
               let id = that.$route.params.id 
               details.getActivity(id).then(function(res){
-                    // that.content=res.data.datas.datas
+      
                  that.https=that.$store.state.picHead
                 that.list=res.data.datas
                 document.getElementById('text').innerHTML = that.list.activityDetails

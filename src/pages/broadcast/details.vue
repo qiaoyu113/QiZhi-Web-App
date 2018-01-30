@@ -1,6 +1,6 @@
 <template>
     <div class="details">
-         <div class="head clearfix">
+     <!--     <div class="head clearfix">
              <div class="head_l">
              	<div><i class="iconfont icon-fanhui"></i></div>
              </div>
@@ -8,15 +8,15 @@
                 <div><i class="iconfont icon-ganxingqu"></i></div>
              	<div><i class="iconfont icon-fenxiang"></i></div>
              </div>
-         </div>
-         <div class="backimg">
+         </div> -->
+        <!--  <div class="backimg">
                <img :src="https + listse.cover" v-if="listse.cover!=null"/>    
-         </div>
-         <div class="option clearfix">
+         </div> -->
+         <!-- <div class="option clearfix">
          	<div :class="{'selected':indexs==1}" @click="show(1)">详情</div>
          	<div :class="{'selected':indexs==2}" @click="show(2)">目录</div>
             <div :class="{'selected':indexs==3}" @click="show(3)">目录</div>
-         </div>
+         </div> -->
          <div class="box_1" :class="{'display':indexs==1}">
                <p class="h3">{{listse.title}}</p>
                <p class="lable">{{startTime}} 开始 | {{listse.applyNum}}人报名</p>

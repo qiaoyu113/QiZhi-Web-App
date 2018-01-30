@@ -1,6 +1,6 @@
 <template>
     <div class="special">
-         <div class="head clearfix">
+<!--          <div class="head clearfix">
              <div class="head_l">
              	<div><i class="iconfont icon-fanhui"></i></div>
              </div>
@@ -15,7 +15,7 @@
          <div class="option clearfix">
          	<div :class="{'selected':indexs==1}" @click="show(1)">详情</div>
          	<div :class="{'selected':indexs==2}" @click="show(2)">目录</div>
-         </div>
+         </div> -->
          <div class="box_1" :class="{'display':indexs==1}">
            <div class="title">
            	  <p class="h1">{{lists.name}} <span v-if="lists.vip!=false">vip</span></p>
@@ -36,7 +36,7 @@
            </div>
          	
          </div>
-         <div class="box_2" :class="{'display':indexs==2}">
+    <!--      <div class="box_2" :class="{'display':indexs==2}">
          	<div class="ros clearfix">
          		<div class="ros_l">12</div>
          		<div class="ros_r">
@@ -79,7 +79,7 @@
          			<p class="lable"><i class="iconfont icon-yinpinx"></i><span>04:23</span><span>1234次收听</span></p>
          		</div>
          	</div>
-         </div>
+         </div> -->
      
       
 
