@@ -58,18 +58,18 @@ const routers = [
     //首页
     {name: 'index',path:'/index',component: index},
     // 文章
-    {name: 'article',path:'/article',component: article},
+    {name: 'article',path:'/articles/:id',component: article},
     {name: 'list',path:'/article/list',component: list},
     //专题
     {name: 'special',path:'/special',component: special},
     {name: 'specialList',path:'/special/list',component: specialList},
     //活动
-    {name: 'activity',path:'/activity',component: activity},
+    {name: 'activity',path:'/activity/:id',component: activity},
     //专栏
-    {name: 'specialColumn',path:'/specialColumn',component: specialColumn},
-    {name: 'specialContent',path:'/specialColumn/content',component: specialContent},
+    {name: 'specialColumn',path:'/specialColumn/:id',component: specialColumn},
+    {name: 'specialContent',path:'/specialContent/:id/:type',component: specialContent},
     // 直播详情
-    {name: 'broadcast',path:'/broadcast',component: broadcast},
+    {name: 'broadcast',path:'/broadcasts/:id',component: broadcast},
     
 ]
 

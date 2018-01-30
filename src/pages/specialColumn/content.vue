@@ -13,14 +13,12 @@
         	 <div class="h1"><p>{{list.name}}</p></div>
              <div class="author clearfix">
              	<div class="author_l">
-             	  <img :src='https + list.authorHeadImg' v-if="list.authorHeadImg!=null"/></div>
+             	  <img :src='https + list.authorHead' v-if="list.authorHead!=null"/></div>
              	<div class="author_con">
              		 <p>{{list.authorName}}</p>
              		 <span>{{createTime}}</span>
              	</div>
-             	
              </div>
-         
              <div class="box" id="content">
                 <!--  <p>12月3日，在国家宪法日即将到来之际，<i>法律互联网服务机构</i>无讼举办了一年一度的“无讼有声”大会。在这场主题为“AI时代的企业法律服务”的大会上，无讼发布了基于人工智能的全新企业法律服务产品“无讼法务”，正式进军企业服务赛道</p>
                  <img src="../../assets/image/default.png" />
@@ -28,9 +26,7 @@
                  <h4>99%的空缺</h4>
                  <p>12月3日，在国家宪法日即将到来之际，法律互联网服务机构无讼举办了一年一度的“无讼有声”大会。
                  </p> -->
-
              </div>
-
         </div>
 
 
@@ -77,16 +73,15 @@
           },
         methods: {
             getContent:function(){
-              let id = "5a1e4dbafde98844bf1ed80a"
+              // let id = "5a1e4dbafde98844bf1ed80a?type=1"
               let that=this;
-              details.getContent("5a1e4dbafde98844bf1ed80a",{type:1}).then(function(res){
-                    // that.content=res.data.datas.datas
+              let id = that.$route.params.id 
+              let type = that.$route.params.type 
+              details.getContent(id,{type:type}).then(function(res){
                 that.list=res.data.datas.data
                 that.https=that.$store.state.picHead
                 document.getElementById('content').innerHTML = that.list.content
-                console.log(that.list)
                 that.createTime = publics.stamp(Number(that.list.createTime))
-                
               })
             },
             Vscroll:function(){

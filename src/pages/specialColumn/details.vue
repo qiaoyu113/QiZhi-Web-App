@@ -127,15 +127,16 @@
                  this.indexs=index
         	},
             getColumn:function(){
-              let id = "5a0021b8ebc3c55fccae786e"
+              // let id = "5a0021b8ebc3c55fccae786e"
               let that=this;
-              details.getColumn("5a0021b8ebc3c55fccae786e").then(function(res){
-                    // that.content=res.data.datas.datas                 
+              let id = that.$route.params.id 
+              details.getColumn(id).then(function(res){
+                     
                 that.lists=res.data.datas 
                  console.log(that.lists)
                 that.https=that.$store.state.picHead+that.lists.poster
                 document.getElementById('special').innerHTML = that.lists.desc
-                // console.log(that.list)
+          
               })
             },
 

@@ -77,15 +77,14 @@
                  this.indexs=index
         	},
             getColumn:function(){
-              let id = "5a3cd6e6fde9880c8f3bcf89"
+              // let id = "572635"
               let that=this;
-              details.getBroadcast("572635").then(function(res){
-                    // that.content=res.data.datas.datas                 
+              let id = that.$route.params.id 
+              details.getBroadcast(id).then(function(res){              
                 that.listse=res.data.datas
-                 console.log(that.listse)
                 that.https=that.$store.state.picHead
                 document.getElementById('broadcasts').innerHTML = that.listse.description
-                // console.log(that.list)
+      
                 that.startTime = publics.stamp2(Number(that.listse.startTime))
               })
             },

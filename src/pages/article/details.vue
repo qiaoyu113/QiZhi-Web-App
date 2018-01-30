@@ -85,19 +85,16 @@
           },
         methods: {
             getList:function(){
-              let id = "5a1244fafde98844bf1ed7f1"
+              // 5a1244fafde98844bf1ed7f1
               let that=this;
-              details.getArticle("5a1244fafde98844bf1ed7f1").then(function(res){
-                    // that.content=res.data.datas.datas
-                    that.https=that.$store.state.picHead
+              let id = that.$route.params.id 
+              details.getArticle(id).then(function(res){
+                 that.https=that.$store.state.picHead
                  that.list=res.data
                 document.getElementById('container').innerHTML = that.list.content
-                console.log(that.list)
                 if(that.list.createDate != null){
                  that.datas = publics.stamp(Number(that.list.createDate))
                 }
-          
-                console.log(that.datas )
               })
             },
             Vscroll:function(){

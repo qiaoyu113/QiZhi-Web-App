@@ -47,7 +47,7 @@
                  <div class="publisher_l"><img :src="https + list.pubUserHeadimg" v-if="list.pubUserHeadimg!=null"/></div>
                  <div class="publisher_con">
                      <p class="h3">{{list.publishUser}}</p>
-                     <p class="p">北京大学工学院工程技术研究院成立于2011年,是工学院的重要机北京大学工学院工程技术研究院成立于2011年</p>
+                     <p class="p">{{list.pubDes}}</p>
                  </div>
                  <div class="publisher_r">
                      <i class="iconfont icon-jiahao"></i>
@@ -108,14 +108,14 @@
         },
         methods: {
             getActivity:function(){
+                // "59116a036f7d13437d476100"
               let that=this;
-              details.getActivity("59116a036f7d13437d476100").then(function(res){
+              let id = that.$route.params.id 
+              details.getActivity(id).then(function(res){
                     // that.content=res.data.datas.datas
-                    that.https=that.$store.state.picHead
-                    console.log(res.data)
+                 that.https=that.$store.state.picHead
                 that.list=res.data.datas
                 document.getElementById('text').innerHTML = that.list.activityDetails
-                // console.log(that.list)
                 that.actStartTime = publics.stamp2(Number(that.list.actStartTime))
                 that.actEndTime = publics.stamp2(Number(that.list.actEndTime))
               })
