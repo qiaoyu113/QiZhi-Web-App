@@ -19,7 +19,7 @@
            <p class="h2">{{list.activityTitle}}</p>
            <p class="browse"><span>{{list.actReadNum}}次浏览</span><span>{{list.actApplyNum}}人报名</span></p>
             <div class="ros">
-                <p><i class="iconfont icon-wait"></i>{{actStartTime}} 至 {{actEndTime}}</p>
+                <p><i class="iconfont icon-wait"></i>{{list.actStartTime | stampFormate2}} 至 {{list.actEndTime | stampFormate2}}</p>
             </div>
             <div class="ros">
                 <p><i class="iconfont icon-chanpin-didian"></i>
@@ -57,7 +57,7 @@
          </div>
          <div class="lecturer">
              <div class="lecturer_top" ><p>活动详情</p></div>
-             <div id="text">
+             <div id="text" v-html="list.activityDetails">
             <!--  12月3日，在国家宪法日即将到来之际，法律互联网服务机构无讼举办了一年一度的“无讼有声”大会。在这场主题为“AI时代的企业法律服务”的大会上，无讼发布了基于人工智能的全新企业法律服务产品“无讼法务”，正式进军企业服务赛道。 -->
              </div>
 
@@ -76,38 +76,38 @@
     export default {
         data () {
             return {
-                list:'',
+               /* list:'',
                 https:'',
                 actStartTime:'',
-                actEndTime:'',
+                actEndTime:'',*/
             }
         },
-        computed:{
-        },
-        syncData({store}) {
-            const that = this;
+        syncData({store,router}) {
+            let id = router.params.id
             return Promise.all([
-                appervice.getParam().then(res=>{
-//                    store.state.homeStore.listImg = res.data;
-                }),
-                service.getParam().then(res=>{
-//                    store.state.homeStore.noticelist = res.data.datas;
+                details.getActivity(id).then(res=>{
+                    store.state.homeStore.list=res.data.datas;
                 }),
             ])
         },
         computed: {
-            listImg() {
-                return this.$store.state.homeStore.listImg || []
+            https() {
+                return this.$store.state.picHead || []
             },
-            noticelist() {
-                return this.$store.state.homeStore.noticelist || []
+            /*简单的格式转换如日期格式放到filter中去做
+            actStartTime() {
+                return publics.stamp2(Number(that.list.actStartTime))
             },
+            actEndTime() {
+                return publics.stamp2(Number(that.list.actEndTime))
+            },*/
         },
         mounted: function() {
-                this.getActivity()
+//            不需要token的请求放在sync中，用store和computed转存
+//                this.getActivity()
         },
         methods: {
-            getActivity:function(){
+            /*getActivity:function(){
                 // "59116a036f7d13437d476100"
               let that=this;
               let id = that.$route.params.id 
@@ -115,11 +115,13 @@
       
                  that.https=that.$store.state.picHead
                 that.list=res.data.datas
+                用v-html减少dom操作
                 document.getElementById('text').innerHTML = that.list.activityDetails
+                用filter简化代码，让代码更清晰
                 that.actStartTime = publics.stamp2(Number(that.list.actStartTime))
                 that.actEndTime = publics.stamp2(Number(that.list.actEndTime))
               })
-            },
+            },*/
 
         }
     }

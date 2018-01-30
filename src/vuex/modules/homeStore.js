@@ -3,6 +3,7 @@
  */
 const homeStore = {
     state: {
+        list: '', //用户名
         knowList: '', //用户名
         livelist: '', // 用户id
         articleList: '', // 平台类型
