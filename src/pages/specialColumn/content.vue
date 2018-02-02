@@ -13,7 +13,7 @@
         	 <div class="h1"><p>{{list.name}}</p></div>
              <div class="author clearfix">
              	<div class="author_l">
-             	  <img :src='https + list.authorHead' v-if="list.authorHead!=null"/></div>
+             	  <img :src='https + list.authorHead'/></div>
              	<div class="author_con">
              		 <p>{{list.authorName}}</p>
              		 <span>{{list.createTime | stampFormate}}</span>
@@ -158,7 +158,21 @@
     				img{
     					width: 100%;
     					height: 100%;
+                        position: relative;
     				}
+                    img:after { 
+                            content: url('../../assets/image/default.png');
+                            display: block;
+                            position: absolute;
+                            // 底下幾行是故意要滿版並且背景填滿擋住底下那個很醜的加載失敗圖片(包子)
+                            z-index: 2;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: #fff;
+                          }
+
     			}
     			.author_con{
     				float: left;

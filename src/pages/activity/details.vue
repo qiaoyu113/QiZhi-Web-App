@@ -44,7 +44,7 @@
                                     </div>
             </div>
             <div class="publisher clearfix">
-                 <div class="publisher_l"><img :src="https + list.pubUserHeadimg" v-if="list.pubUserHeadimg!=null"/></div>
+                 <div class="publisher_l"><img :src="https + list.pubUserHeadimg"/></div>
                  <div class="publisher_con">
                      <p class="h3">{{list.publishUser}}</p>
                      <p class="p">{{list.pubDes}}</p>
@@ -180,7 +180,21 @@
             img{
                 width: 100%;
                 height: 100%;
+                position: relative;
             }
+            img:after { 
+                            content: url('../../assets/image/default.png');
+                            display: block;
+                            position: absolute;
+                            // 底下幾行是故意要滿版並且背景填滿擋住底下那個很醜的加載失敗圖片(包子)
+                            z-index: 2;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: #fff;
+                          }
+
             .biaoqian{
                 position: absolute;
                 left: 0;
@@ -272,7 +286,20 @@
                         img{
                             width: 100%;
                             height: 100%;
+                            position: relative;
                         }
+                         img:after { 
+                            content: url('../../assets/image/default.png');
+                            display: block;
+                            position: absolute;
+                            // 底下幾行是故意要滿版並且背景填滿擋住底下那個很醜的加載失敗圖片(包子)
+                            z-index: 2;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: #fff;
+                          }
                     }
                     .publisher_con{
                         float: left;
