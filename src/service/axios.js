@@ -6,8 +6,8 @@ import store from '../vuex/'
 
 // axios.defaults.baseURL = 'http://api.saas.vjuzhen.com';
 // axios.defaults.baseURL = 'http://u4hphg.natappfree.cc';
-//  axios.defaults.baseURL = 'http://ht7f2f.natappfree.cc';
-axios.defaults.baseURL = 'http://api.qizhi.vjuzhen.com';
+ axios.defaults.baseURL = 'http://api.dtfind.com';
+// axios.defaults.baseURL = 'http://api.qizhi.vjuzhen.com';
 
 let win = typeof window
 let isClient = false

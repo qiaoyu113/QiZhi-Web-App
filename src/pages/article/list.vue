@@ -89,7 +89,7 @@
         asyncData({store,route}) {
             const that = this;
             return Promise.all([
-                appervice.getParam().then(res=>{
+                appService.getParam().then(res=>{
 //                    store.state.homeStore.listImg = res.data;
                 }),
                 service.getParam().then(res=>{

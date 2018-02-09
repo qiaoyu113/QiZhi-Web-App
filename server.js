@@ -70,8 +70,8 @@ app.get('*', (req, res) => {
   renderer.renderToStream({ url: req.url ,title:global.title})
     .on('error', errorHandler)
     .on('end', (res) => {
-      console.log(`whole request: ${Date.now() - s}ms`)
-        console.log(1, res);
+      /*console.log(`whole request: ${Date.now() - s}ms`)
+        console.log(1, res);*/
     })
     .pipe(res)
 })
