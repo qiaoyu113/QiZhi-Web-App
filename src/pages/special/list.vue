@@ -66,9 +66,6 @@
                 appService.getParam().then(res=>{
 //                    store.state.homeStore.listImg = res.data;
                 }),
-                service.getParam().then(res=>{
-//                    store.state.homeStore.noticelist = res.data.datas;
-                }),
             ])
         },
         computed: {

@@ -28,11 +28,8 @@
             * that.data().data调用数据
             * */
             return Promise.all([
-                appervice.getParam().then(res=>{
+                appService.getParam().then(res=>{
 //                    store.state.homeStore.listImg = res.data;
-                }),
-                service.getParam().then(res=>{
-//                    store.state.homeStore.noticelist = res.data.datas;
                 }),
             ])
         },
