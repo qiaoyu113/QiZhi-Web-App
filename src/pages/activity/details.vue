@@ -23,7 +23,7 @@
             </div>
             <div class="ros">
                 <p><i class="iconfont icon-chanpin-didian"></i>
-                  <i>{{list.prov}}{{list.city}}{{list.dist}}{{list.activityAddress}}</i>
+                  <i @click="jumpMap()">{{list.prov}}{{list.city}}{{list.dist}}{{list.activityAddress}}</i>
                   <i class="iconfont icon-fanhui right"></i></p>
             </div>
              <div class="ros">
@@ -34,7 +34,7 @@
                    <span v-if="list.actCostType==0">免费</span></p>
             </div>
              <div v-if="list.actApplyStauts == 1" class="ros clearfix">
-                <div class="ros_l"><i class="iconfont icon-wode"></i>{{list.actApplyNum}}人已报名 限{{list.peoUpperLimit}}人</div>
+                <div class="ros_l" @click="jumpList()"><i class="iconfont icon-wode"></i>{{list.actApplyNum}}人已报名 限{{list.peoUpperLimit}}人</div>
                 <div class="ros_r cleafix">
                                     <i class="iconfont icon-fanhui"></i>
                                     <div class="ros_r_r clearfix" v-for="listy in lists">
@@ -46,12 +46,16 @@
             <div class="publisher clearfix">
                  <div class="publisher_l"><img :src="https + list.pubUserHeadimg"/></div>
                  <div class="publisher_con">
-                     <p class="h3">{{list.publishUser}}</p>
+                     <p class="h3" @click="jumpAuthor()">{{list.publishUser}}</p>
                      <p class="p">{{list.pubDes}}</p>
                  </div>
-                 <div class="publisher_r">
-                     <i class="iconfont icon-jiahao"></i>
+                 <div class="publisher_r" v-if="!list.isfl">
+                     <i class="iconfont icon-jiahao" @click="follow()"></i>
                      关注
+                 </div>
+                 <div class="publisher_r">
+                     <i class="iconfont icon-jiahao" @click="unfollow()"></i>
+                     取消关注
                  </div>
             </div>
          </div>
@@ -116,6 +120,7 @@
             // console.log(this.list);
 //            不需要token的请求放在sync中，用store和computed转存
                this.getActivity()
+               this.isFollow()
         },
         methods: {
             getActivity:function(){
@@ -136,6 +141,36 @@
               }
               
             },
+            isFollow:function () {
+                var params = {
+                    adminId:this.list.publishUserId
+                }
+                details.getFollow(params).then(res => {
+//                    console.log(res)
+                    this.list.isfl = res.data.datas
+                })
+            },
+            jumpMap:function(){
+    //                console.log(this.list);
+                var addr = this.list.prov+this.list.city+this.list.dist+this.list.activityAddress
+                window.qiZhi.jumpMap(addr)
+            },
+            jumpList:function(){
+    //                console.log(this.list);
+                window.qiZhi.jumpEnrolledIn()
+            },
+            jumpAuthor:function(){
+    //                console.log(this.list);
+                window.qiZhi.jumpCommunityNumber(this.list.publishUserId)
+            },
+            follow:function(){
+//                    console.log(this.list);
+                window.qiZhi.followCommunityNumber(this.list.publishUserId)
+            },
+            unfollow:function(){
+//                    console.log(this.list);
+                window.qiZhi.unFollowCommunityNumber(this.list.publishUserId)
+            }
 
         }
     }

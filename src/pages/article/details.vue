@@ -11,7 +11,7 @@
         <div class="con">
         	 <div class="label">
         	 	 <ul class="clearfix" v-for="(lists,index) in list.tag">
-        	 	 	<li>{{lists}}</li>
+        	 	 	<li @click="jumpTag(index)">{{lists}}</li>
         	 	 </ul>
         	 </div>
         	 <div class="h1"><p>{{list.title}}</p></div>
@@ -20,10 +20,11 @@
                    <img :src='https + list.authorHeadImg' v-if="list.authorHeadImg!=null"/>
                 </div>
              	<div class="author_con">
-             		 <p>{{list.originAuthor}}</p>
+             		 <p @click="jumpAuthor()">{{list.originAuthor}}</p>
              		 <span>{{list.createDate | stampFormate}}</span>
              	</div>
-             	<div class="author_r"><i class="iconfont icon-jiahao"></i>关注</div>
+             	<div class="author_r" @click="follow()" v-if="!list.isfl"><i class="iconfont icon-jiahao"></i>关注</div>
+             	<div class="author_r" @click="unfollow()" v-else><i class="iconfont icon-jiahao"></i>取消关注</div>
              </div>
              <div class="explain clearfix">
              	  <div class="explain_l"><img src="../../assets/image/yinhao.png"></div>
@@ -75,7 +76,7 @@
         },
         mounted: function() {
             this.Vscroll();
-            // this.getList();
+             this.isFollow();
           },
         methods: {
             // getList:function(){
@@ -103,12 +104,46 @@
                       $('.head i').css('color','#fff')
                    }
                   });
+            },
+            isFollow:function () {
+                var params = {
+                    adminId:this.list.createUserId
+                }
+                details.getFollow(params).then(res => {
+//                    console.log(res)
+                    this.list.isfl = res.data.datas
+                })
+            },
+            follow:function(){
+//                alert(123)
+//                console.log(this.list);
+//                window.qiZhi.jumpCommunityNumber("232423232");
+                window.qiZhi.followCommunityNumber(this.list.createUserId)
+            },
+            unfollow:function(){
+//                alert(123)
+//                console.log(this.list);
+//                window.qiZhi.jumpCommunityNumber("232423232");
+                window.qiZhi.unFollowCommunityNumber(this.list.createUserId)
+            },
+            jumpAuthor:function(){
+//                alert(123)
+//                window.qiZhi.jumpCommunityNumber("232423232");
+//                console.log(this.list);
+                window.qiZhi.jumpCommunityNumber(this.list.createUserId)
+            },
+            jumpTag:function(id){
+//                alert(123)
+//                window.qiZhi.jumpCommunityNumber("232423232");
+//                console.log(this.list);
+                window.qiZhi.jumpArticleList(this.list.tagId(id))
             }
         }
     }
 </script>
 <style lang="less" >
     /*rem等基本设置都放在base中，不写多个*/
+    // @import url('../../assets/css/base.less');
     // @import url('../../assets/css/base.less');
     .details{
     	width: 100%;
@@ -231,7 +266,7 @@
     			 }
     			 .explain_r{
     			 	float: left;
-    			 	width: 7.5rem;
+    			 	/*width: 7.5rem;*/
     			 	p{
     			 		font-size: 14px;
                         color: #666666;

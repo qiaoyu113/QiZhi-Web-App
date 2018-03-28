@@ -25,6 +25,9 @@ export const details = {
     getBroadcast: function(params) { // 获得直播详情
        return axios.get('/lives/'+params);
     },
+    getFollow: function(params) { // 获得直播详情
+       return axios.get('/isFollow/'+ this.getParam(params));
+    },
 
 
     getLiveList: function(params) { // 获得直播列表
