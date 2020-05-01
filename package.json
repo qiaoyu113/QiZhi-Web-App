@@ -12,7 +12,7 @@
     "unit": "karma start ./test/unit/karma.conf.js --single-run"
   },
   "dependencies": {
-    "axios": "^0.17.0",
+    "axios": "^0.19.2",
     "better-scroll": "^1.4.1",
     "cropperjs": "^1.2.1",
     "distpicker": "^2.0.2",
